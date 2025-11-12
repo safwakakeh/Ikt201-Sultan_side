@@ -18,7 +18,17 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Privacy()
+    public IActionResult BordBestilling()
+    {
+        return View();
+    }
+
+    public IActionResult Meny()
+    {
+        return View();
+    }
+
+    public IActionResult KontaktOss()
     {
         return View();
     }
