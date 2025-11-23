@@ -1,0 +1,29 @@
+bin/
+obj/
+*.user
+*.dbmdl
+*.pdb
+*.cache
+*.log
+*.ldf
+*.ndf
+*.jfm
+*.suo
+*.ntvs_analysis.dat
+*.njsproj
+*.sln.docstates
+
+# IDE folders
+.vs/
+.idea/
+
+# Build output (any level)
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+# Rider/JetBrains settings
+*.DotSettings.user
+
+# ASP.NET static client libs (if using LibMan or local vendor libs)
+wwwroot/lib/
