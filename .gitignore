@@ -27,3 +27,5 @@ obj/
 
 # ASP.NET static client libs (if using LibMan or local vendor libs)
 wwwroot/lib/
+
+app.db
