@@ -1,0 +1,112 @@
+@model IEnumerable<Review>
+@{
+    ViewData["Title"] = "Tilbakemeldinger";
+    var showPending = ViewBag.ShowPending as bool? ?? false;
+}
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h1><i class="bi bi-chat-left-text"></i> Tilbakemeldinger</h1>
+    </div>
+    <div class="col-md-6">
+        <div class="btn-group float-end" role="group">
+            <a asp-action="Index" class="btn btn-outline-secondary @(!showPending ? "active" : "")">
+                Alle
+            </a>
+            <a asp-action="Index" asp-route-pending="true" class="btn btn-outline-warning @(showPending ? "active" : "")">
+                Venter godkjenning
+            </a>
+        </div>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i> Ingen tilbakemeldinger funnet.
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var review in Model)
+        {
+            <div class="col-md-6 mb-3">
+                <div class="card h-100 @(review.IsApproved ? "" : "border-warning")">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h5 class="card-title mb-1">@review.CustomerName</h5>
+                                <small class="text-muted">@review.CreatedAt.ToString("dd.MM.yyyy HH:mm")</small>
+                            </div>
+                            <div>
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= review.Rating)
+                                    {
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="bi bi-star text-muted"></i>
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                        <p class="card-text">@review.Message</p>
+
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div>
+                                @if (review.IsApproved)
+                                {
+                                    <span class="badge bg-success">Godkjent</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">Venter godkjenning</span>
+                                }
+                            </div>
+                            <div class="btn-group btn-group-sm">
+                                @if (!review.IsApproved)
+                                {
+                                    <form asp-action="Approve" asp-route-id="@review.Id" method="post" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-outline-success" title="Godkjenn">
+                                            <i class="bi bi-check-circle"></i> Godkjenn
+                                        </button>
+                                    </form>
+                                }
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal@(review.Id)" title="Slett">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delete Modal -->
+                <div class="modal fade" id="deleteModal@(review.Id)" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Bekreft sletting</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                Er du sikker pÃ¥ at du vil slette tilbakemeldingen fra <strong>@review.CustomerName</strong>?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Avbryt</button>
+                                <form asp-action="Delete" asp-route-id="@review.Id" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-danger">Slett</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

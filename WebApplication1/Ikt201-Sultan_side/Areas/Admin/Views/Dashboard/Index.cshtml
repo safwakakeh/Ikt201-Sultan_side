@@ -1,0 +1,187 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h1><i class="bi bi-speedometer2"></i> Dashboard Oversikt</h1>
+        <p class="text-muted">Velkommen til administrasjonspanelet</p>
+    </div>
+</div>
+
+<!-- Statistikk Cards -->
+<div class="row g-4 mb-5">
+    <!-- Retter -->
+    <div class="col-md-4">
+        <div class="card stat-card primary h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-2">Retter på menyen</h6>
+                        <h2 class="mb-0">@ViewBag.TotalDishes</h2>
+                        <small class="text-success">@ViewBag.AvailableDishes tilgjengelig</small>
+                    </div>
+                    <div class="fs-1 text-primary">
+                        <i class="bi bi-egg-fried"></i>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <a asp-controller="Dishes" asp-action="Index" class="btn btn-sm btn-primary">
+                        <i class="bi bi-arrow-right"></i> Administrer
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bordbestillinger -->
+    <div class="col-md-4">
+        <div class="card stat-card success h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-2">Bordbestillinger</h6>
+                        <h2 class="mb-0">@ViewBag.TotalReservations</h2>
+                        <small class="text-warning">@ViewBag.PendingReservations ventende</small>
+                    </div>
+                    <div class="fs-1 text-success">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <a asp-controller="Reservations" asp-action="Index" class="btn btn-sm btn-success">
+                        <i class="bi bi-arrow-right"></i> Administrer
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tilbakemeldinger -->
+    <div class="col-md-4">
+        <div class="card stat-card info h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-2">Tilbakemeldinger</h6>
+                        <h2 class="mb-0">@ViewBag.TotalReviews</h2>
+                        <small class="text-danger">@ViewBag.PendingReviews venter godkjenning</small>
+                    </div>
+                    <div class="fs-1 text-info">
+                        <i class="bi bi-chat-left-text"></i>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <a asp-controller="Reviews" asp-action="Index" asp-route-pending="true" class="btn btn-sm btn-info text-white">
+                        <i class="bi bi-arrow-right"></i> Administrer
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- I dag -->
+<div class="row g-4 mb-5">
+    <div class="col-md-6">
+        <div class="card stat-card warning h-100">
+            <div class="card-body">
+                <h5><i class="bi bi-calendar-day"></i> I dag</h5>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <h3>@ViewBag.TodaysReservations</h3>
+                        <small class="text-muted">Reservasjoner</small>
+                    </div>
+                    <div class="col-6">
+                        <h3>@ViewBag.TodaysOrders</h3>
+                        <small class="text-muted">Bestillinger</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card stat-card danger h-100">
+            <div class="card-body">
+                <h5><i class="bi bi-exclamation-triangle"></i> Krever oppmerksomhet</h5>
+                <ul class="list-unstyled mt-3">
+                    <li class="mb-2">
+                        <i class="bi bi-circle-fill text-warning"></i> 
+                        <strong>@ViewBag.PendingReservations</strong> ventende bordbestillinger
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-circle-fill text-danger"></i> 
+                        <strong>@ViewBag.PendingReviews</strong> tilbakemeldinger venter godkjenning
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Siste reservasjoner -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-clock-history"></i> Siste Reservasjoner</h5>
+            </div>
+            <div class="card-body">
+                @if (ViewBag.RecentReservations != null && ((IEnumerable<Reservation>)ViewBag.RecentReservations).Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Navn</th>
+                                    <th>Dato</th>
+                                    <th>Antall</th>
+                                    <th>Status</th>
+                                    <th>Handlinger</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var res in (IEnumerable<Reservation>)ViewBag.RecentReservations)
+                                {
+                                    <tr>
+                                        <td>@res.CustomerName</td>
+                                        <td>@res.ReservationDate.ToString("dd.MM.yyyy HH:mm")</td>
+                                        <td>@res.NumberOfGuests personer</td>
+                                        <td>
+                                            @if (res.Status == "Pending")
+                                            {
+                                                <span class="badge bg-warning">Ventende</span>
+                                            }
+                                            else if (res.Status == "Confirmed")
+                                            {
+                                                <span class="badge bg-success">Bekreftet</span>
+                                            }
+                                            else if (res.Status == "Cancelled")
+                                            {
+                                                <span class="badge bg-danger">Kansellert</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-secondary">@res.Status</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <a asp-controller="Reservations" asp-action="Edit" asp-route-id="@res.Id" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted">Ingen reservasjoner ennå.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

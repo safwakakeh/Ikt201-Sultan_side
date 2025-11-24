@@ -1,0 +1,102 @@
+@model Reservation
+@{
+    ViewData["Title"] = "Rediger reservasjon";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index">Bordbestillinger</a></li>
+                <li class="breadcrumb-item active">Rediger</li>
+            </ol>
+        </nav>
+        <h1><i class="bi bi-pencil"></i> Rediger Reservasjon</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="CreatedAt" />
+                    
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="CustomerName" class="form-label">Kundenavn *</label>
+                        <input asp-for="CustomerName" class="form-control" />
+                        <span asp-validation-for="CustomerName" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Email" class="form-label">E-post *</label>
+                            <input asp-for="Email" class="form-control" type="email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Phone" class="form-label">Telefon *</label>
+                            <input asp-for="Phone" class="form-control" type="tel" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label asp-for="ReservationDate" class="form-label">Dato og tid *</label>
+                            <input asp-for="ReservationDate" class="form-control" type="datetime-local" />
+                            <span asp-validation-for="ReservationDate" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="NumberOfGuests" class="form-label">Antall personer *</label>
+                            <input asp-for="NumberOfGuests" class="form-control" type="number" min="1" max="20" />
+                            <span asp-validation-for="NumberOfGuests" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Status" class="form-label">Status</label>
+                        <select asp-for="Status" class="form-select">
+                            <option value="Pending">Ventende</option>
+                            <option value="Confirmed">Bekreftet</option>
+                            <option value="Cancelled">Kansellert</option>
+                            <option value="Completed">FullfÃ¸rt</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Notes" class="form-label">Notater</label>
+                        <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Lagre endringer
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Avbryt
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-info-circle"></i> Informasjon</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Opprettet:</strong><br>@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

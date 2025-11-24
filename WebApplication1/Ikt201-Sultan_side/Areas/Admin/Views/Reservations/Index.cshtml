@@ -1,0 +1,167 @@
+@model IEnumerable<Reservation>
+@{
+    ViewData["Title"] = "Bordbestillinger";
+    var currentStatus = ViewBag.CurrentStatus as string;
+}
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h1><i class="bi bi-calendar-check"></i> Bordbestillinger</h1>
+    </div>
+    <div class="col-md-6">
+        <div class="btn-group float-end" role="group">
+            <a asp-action="Index" class="btn btn-outline-secondary @(string.IsNullOrEmpty(currentStatus) ? "active" : "")">
+                Alle
+            </a>
+            <a asp-action="Index" asp-route-status="Pending" class="btn btn-outline-warning @(currentStatus == "Pending" ? "active" : "")">
+                Ventende
+            </a>
+            <a asp-action="Index" asp-route-status="Confirmed" class="btn btn-outline-success @(currentStatus == "Confirmed" ? "active" : "")">
+                Bekreftet
+            </a>
+            <a asp-action="Index" asp-route-status="Cancelled" class="btn btn-outline-danger @(currentStatus == "Cancelled" ? "active" : "")">
+                Kansellert
+            </a>
+            <a asp-action="Index" asp-route-status="Completed" class="btn btn-outline-info @(currentStatus == "Completed" ? "active" : "")">
+                Fullført
+            </a>
+        </div>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i> Ingen bordbestillinger funnet.
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Kunde</th>
+                            <th>Kontakt</th>
+                            <th>Dato & Tid</th>
+                            <th>Antall</th>
+                            <th>Status</th>
+                            <th>Handlinger</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var reservation in Model)
+                        {
+                            var isPast = reservation.ReservationDate < DateTime.Now;
+                            <tr class="@(isPast ? "table-secondary" : "")">
+                                <td>
+                                    <strong>@reservation.CustomerName</strong>
+                                    @if (!string.IsNullOrEmpty(reservation.Notes))
+                                    {
+                                        <br><small class="text-muted"><i class="bi bi-chat-left-text"></i> @reservation.Notes</small>
+                                    }
+                                </td>
+                                <td>
+                                    <small>
+                                        <i class="bi bi-envelope"></i> @reservation.Email<br>
+                                        <i class="bi bi-telephone"></i> @reservation.Phone
+                                    </small>
+                                </td>
+                                <td>
+                                    @reservation.ReservationDate.ToString("dd.MM.yyyy")<br>
+                                    <strong>@reservation.ReservationDate.ToString("HH:mm")</strong>
+                                </td>
+                                <td>
+                                    <i class="bi bi-people-fill"></i> @reservation.NumberOfGuests
+                                </td>
+                                <td>
+                                    @switch (reservation.Status)
+                                    {
+                                        case "Pending":
+                                            <span class="badge bg-warning text-dark">Ventende</span>
+                                            break;
+                                        case "Confirmed":
+                                            <span class="badge bg-success">Bekreftet</span>
+                                            break;
+                                        case "Cancelled":
+                                            <span class="badge bg-danger">Kansellert</span>
+                                            break;
+                                        case "Completed":
+                                            <span class="badge bg-info">Fullført</span>
+                                            break;
+                                        default:
+                                            <span class="badge bg-secondary">@reservation.Status</span>
+                                            break;
+                                    }
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        @if (reservation.Status == "Pending")
+                                        {
+                                            <form asp-action="UpdateStatus" asp-route-id="@reservation.Id" method="post" class="d-inline">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="status" value="Confirmed" />
+                                                <button type="submit" class="btn btn-outline-success" title="Bekreft">
+                                                    <i class="bi bi-check-circle"></i>
+                                                </button>
+                                            </form>
+                                            <form asp-action="UpdateStatus" asp-route-id="@reservation.Id" method="post" class="d-inline">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="status" value="Cancelled" />
+                                                <button type="submit" class="btn btn-outline-danger" title="Kanseller">
+                                                    <i class="bi bi-x-circle"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                        else if (reservation.Status == "Confirmed" && !isPast)
+                                        {
+                                            <form asp-action="UpdateStatus" asp-route-id="@reservation.Id" method="post" class="d-inline">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="status" value="Completed" />
+                                                <button type="submit" class="btn btn-outline-info" title="Marker som fullført">
+                                                    <i class="bi bi-check2-all"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                        
+                                        <a asp-action="Edit" asp-route-id="@reservation.Id" class="btn btn-outline-primary" title="Rediger">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        
+                                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal@(reservation.Id)" title="Slett">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Delete Modal -->
+                            <div class="modal fade" id="deleteModal@(reservation.Id)" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Bekreft sletting</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Er du sikker på at du vil slette reservasjonen for <strong>@reservation.CustomerName</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Avbryt</button>
+                                            <form asp-action="Delete" asp-route-id="@reservation.Id" method="post" class="d-inline">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-danger">Slett</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
