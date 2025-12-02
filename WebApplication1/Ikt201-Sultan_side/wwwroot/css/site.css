@@ -8,6 +8,13 @@ html {
   }
 }
 
+body {
+  margin-bottom: 60px;
+  padding-top: 70px;
+  background-color: #e5d6b8;
+  color: #0f3d1e;
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -19,6 +26,7 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: gray;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -28,4 +36,120 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+/*index */
+.forside{
+  width: 100%;
+  height: auto;
+}
+
+/* Bord bestilling */
+.bordbestilling{
+  display: block;
+  text-align: center;
+  width: 100%;
+  height: 100vh;
+}
+.bordbestilling h1, p{
+  margin: 0 0 1rem;
+}
+
+/* Nav */
+.navbar .nav-link:hover {
+  color: #e5d6b8 !important;
+}
+
+.navbar .nav-link,
+.navbar .navbar-brand {
+  color: #d4c39a  !important;
+  font-weight: 600;
+}
+
+.navbar .nav-link.active {
+  border-bottom: 2px solid #d4c39a;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+
+  background: rgba(23, 23, 23, 0.6) !important; /* translucent dark */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: none !important;
+}
+.navbar-brand img {
+  height: 50px;
+  width: auto;
+}
+
+/* === BUTTONS (optional, to match brand) === */
+.btn-primary {
+  background-color: #0f3d1e;
+  border-color: #0f3d1e;
+  color: #d4c39a;
+}
+
+.btn-primary:hover {
+  background-color: #1b5e20;
+  border-color: #1b5e20;
+  color: white;
+}
+
+/* === HEADERS === */
+h1, h2, h3, h4 {
+  color: #0f3d1e;
+}
+
+/* ===== FRONT PAGE LAYOUT (SIZES ONLY) ===== */
+
+/* Hero title / main heading on front page */
+.text-center .display-4 {
+  font-size: clamp(2.5rem, 4vw, 3.5rem); /* responsive size */
+  letter-spacing: 0.08em;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Front page image (logo/hero) */
+.forside {
+  max-width: 700px;   /* limit size on big screens */
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 2rem auto;  /* center + space below */
+}
+
+/* General paragraph text */
+p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* Navbar text sizing */
+.navbar .navbar-brand {
+  font-size: 1.2rem;
+}
+
+.navbar .nav-link {
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+/* Subheadings spacing */
+h2, h3, h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+
+.forsideBildeTopp {
+  width: 50%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }

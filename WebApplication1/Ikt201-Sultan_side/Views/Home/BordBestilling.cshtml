@@ -1,7 +1,49 @@
+@model Ikt201_Sultan_side.Models.Bordbestilling
 @{
-    ViewData["Title"] = "Bord bestilling";
+    ViewData["Title"] = "Bestill Bord";
 }
 
-<h1>Bord bestilling</h1>
+<link rel="stylesheet" href="~/site.css" asp-append-version="true"/>
 
-<p>Her kan du bestille bord for ditt besøk.</p>
+<section class="bordbestilling">
+    <div class="bestillingsTekst">
+        <h1 class="overskrift">Bestill bord</h1>
+        <p>Her kan du bestille bord for ditt besøk.</p>
+    </div>
+
+    <form action="bestill" method="post">
+
+        <!-- Navn -->
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+        <br />
+
+        <!-- Telefon -->
+        <label asp-for="Phone" class="control-label"></label>
+        <input asp-for="Phone" class="form-control" type="tel" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+        <br />
+
+        <!-- Email -->
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" type="email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+        <br />
+
+        <!-- Guests -->
+        <label asp-for="Guests" class="control-label"></label>
+        <select asp-for="Guests" asp-items="Model.GuestOptions" class="form-control"></select>
+        <span asp-validation-for="Guests" class="text-danger"></span>
+        <br />
+
+        <!-- Time -->
+        <label asp-for="Time" class="control-label"></label>
+        <input asp-for="Time" class="form-control" type="datetime-local" />
+        <span asp-validation-for="Time" class="text-danger"></span>
+        <br /><br />
+
+        <button type="submit" class="btn btn-primary">Bestill bord</button>
+
+    </form>
+</section>

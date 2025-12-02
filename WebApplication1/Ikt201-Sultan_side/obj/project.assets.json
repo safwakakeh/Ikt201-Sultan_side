@@ -3565,23 +3565,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\taltu\\.nuget\\packages\\": {},
+    "C:\\Users\\casmi\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\taltu\\Desktop\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj",
+      "projectUniqueName": "C:\\Users\\casmi\\ikt201g25h\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj",
       "projectName": "Ikt201-Sultan_side",
-      "projectPath": "C:\\Users\\taltu\\Desktop\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj",
-      "packagesPath": "C:\\Users\\taltu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\taltu\\Desktop\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\obj\\",
+      "projectPath": "C:\\Users\\casmi\\ikt201g25h\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj",
+      "packagesPath": "C:\\Users\\casmi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\casmi\\ikt201g25h\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\taltu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\casmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3590,7 +3590,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
