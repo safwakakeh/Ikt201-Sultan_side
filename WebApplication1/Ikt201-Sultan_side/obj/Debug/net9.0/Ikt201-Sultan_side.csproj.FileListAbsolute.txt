@@ -583,3 +583,7 @@ C:\Users\taltu\Desktop\Ikt201-Sultan_side\WebApplication1\Ikt201-Sultan_side\obj
 C:\Users\taltu\Desktop\Ikt201-Sultan_side\WebApplication1\Ikt201-Sultan_side\obj\Debug\net9.0\Ikt201-Sultan_side.pdb
 C:\Users\taltu\Desktop\Ikt201-Sultan_side\WebApplication1\Ikt201-Sultan_side\obj\Debug\net9.0\Ikt201-Sultan_side.genruntimeconfig.cache
 C:\Users\taltu\Desktop\Ikt201-Sultan_side\WebApplication1\Ikt201-Sultan_side\obj\Debug\net9.0\ref\Ikt201-Sultan_side.dll
+C:\Users\taltu\Desktop\Ikt201-Sultan_side\WebApplication1\Ikt201-Sultan_side\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\taltu\Desktop\Ikt201-Sultan_side\WebApplication1\Ikt201-Sultan_side\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\taltu\Desktop\Ikt201-Sultan_side\WebApplication1\Ikt201-Sultan_side\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\taltu\Desktop\Ikt201-Sultan_side\WebApplication1\Ikt201-Sultan_side\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll

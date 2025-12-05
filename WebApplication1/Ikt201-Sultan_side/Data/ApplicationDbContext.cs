@@ -9,4 +9,5 @@ public class ApplicationDbContext : IdentityDbContext
         : base(options)
     {
     }
+    public DbSet<Ikt201_Sultan_side.Models.Person> Personer { get; set; }
 }
