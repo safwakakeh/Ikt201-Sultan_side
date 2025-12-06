@@ -36,15 +36,30 @@ namespace Ikt201_Sultan_side.ApiControllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<PersonDto>> Create(PersonDto personDto)
+        public async Task<ActionResult<PersonDto>> Create(PersonCreateDto personDto)
         {
             if (string.IsNullOrWhiteSpace(personDto.Navn) || string.IsNullOrWhiteSpace(personDto.Epost))
                 return BadRequest("Navn and Epost are required.");
+
+            if (await _context.Personer.AnyAsync(p => p.Epost == personDto.Epost))
+                return BadRequest("Email already exists.");
+            if (await _context.Personer.AnyAsync(p => p.Telefon == personDto.Telefon))
+                return BadRequest("Phone number already exists.");
+
             var person = new Person { Navn = personDto.Navn, Epost = personDto.Epost, Telefon = personDto.Telefon, Admin = personDto.Admin };
             _context.Personer.Add(person);
             await _context.SaveChangesAsync();
-            personDto.PersonId = person.PersonId;
-            return CreatedAtAction(nameof(Get), new { id = person.PersonId }, personDto);
+            
+            var resultDto = new PersonDto 
+            { 
+                PersonId = person.PersonId, 
+                Navn = person.Navn, 
+                Epost = person.Epost, 
+                Telefon = person.Telefon, 
+                Admin = person.Admin 
+            };
+
+            return CreatedAtAction(nameof(Get), new { id = person.PersonId }, resultDto);
         }
 
         [HttpPut("{id}")]
@@ -53,6 +68,12 @@ namespace Ikt201_Sultan_side.ApiControllers
             if (id != personDto.PersonId) return BadRequest();
             if (string.IsNullOrWhiteSpace(personDto.Navn) || string.IsNullOrWhiteSpace(personDto.Epost))
                 return BadRequest("Navn and Epost are required.");
+
+            if (await _context.Personer.AnyAsync(p => p.Epost == personDto.Epost && p.PersonId != id))
+                return BadRequest("Email already exists.");
+            if (await _context.Personer.AnyAsync(p => p.Telefon == personDto.Telefon && p.PersonId != id))
+                return BadRequest("Phone number already exists.");
+
             var person = await _context.Personer.FindAsync(id);
             if (person == null) return NotFound();
             person.Navn = personDto.Navn;

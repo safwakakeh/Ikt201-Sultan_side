@@ -37,15 +37,17 @@ namespace Ikt201_Sultan_side.ApiControllers
 
 
         [HttpPost]
-        public async Task<ActionResult<KategoriDto>> Create(KategoriDto kategoriDto)
+        public async Task<ActionResult<KategoriDto>> Create(KategoriCreateDto kategoriDto)
         {
             if (string.IsNullOrWhiteSpace(kategoriDto.Navn))
                 return BadRequest("Navn is required.");
             var kategori = new Kategori { Navn = kategoriDto.Navn };
             _context.Kategorier.Add(kategori);
             await _context.SaveChangesAsync();
-            kategoriDto.KategoriId = kategori.KategoriId;
-            return CreatedAtAction(nameof(Get), new { id = kategori.KategoriId }, kategoriDto);
+            
+            var resultDto = new KategoriDto { KategoriId = kategori.KategoriId, Navn = kategori.Navn };
+
+            return CreatedAtAction(nameof(Get), new { id = kategori.KategoriId }, resultDto);
         }
 
 

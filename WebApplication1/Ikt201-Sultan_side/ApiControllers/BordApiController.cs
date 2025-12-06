@@ -38,15 +38,17 @@ namespace Ikt201_Sultan_side.ApiControllers
 
 
         [HttpPost]
-        public async Task<ActionResult<BordDto>> Create(BordDto bordDto)
+        public async Task<ActionResult<BordDto>> Create(BordCreateDto bordDto)
         {
             if (bordDto.Plasser <= 0 || bordDto.MaksPlasser <= 0)
                 return BadRequest("Plasser and MaksPlasser must be positive.");
             var bord = new Bord { Plasser = bordDto.Plasser, MaksPlasser = bordDto.MaksPlasser };
             _context.Bord.Add(bord);
             await _context.SaveChangesAsync();
-            bordDto.BordId = bord.BordId;
-            return CreatedAtAction(nameof(Get), new { id = bord.BordId }, bordDto);
+            
+            var resultDto = new BordDto { BordId = bord.BordId, Plasser = bord.Plasser, MaksPlasser = bord.MaksPlasser };
+
+            return CreatedAtAction(nameof(Get), new { id = bord.BordId }, resultDto);
         }
 
 

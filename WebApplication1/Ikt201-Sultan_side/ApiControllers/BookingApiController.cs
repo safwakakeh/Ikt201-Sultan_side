@@ -54,7 +54,7 @@ namespace Ikt201_Sultan_side.ApiControllers
 
 
         [HttpPost]
-        public async Task<ActionResult<BookingDto>> Create(BookingDto bookingDto)
+        public async Task<ActionResult<BookingDto>> Create(BookingCreateDto bookingDto)
         {
             if (bookingDto.KundeId <= 0 || bookingDto.BordId <= 0 || bookingDto.AntallGjester <= 0)
                 return BadRequest("KundeId, BordId, and AntallGjester must be positive.");
@@ -83,8 +83,21 @@ namespace Ikt201_Sultan_side.ApiControllers
                 };
                 _context.Bookinger.Add(booking);
                 await _context.SaveChangesAsync();
-                bookingDto.BookingId = booking.BookingId;
-                return CreatedAtAction(nameof(Get), new { id = booking.BookingId }, bookingDto);
+
+                var resultDto = new BookingDto
+                {
+                    BookingId = booking.BookingId,
+                    KundeId = booking.PersonId,
+                    BordId = booking.BordId,
+                    Tid = booking.Tid,
+                    TidSlutt = booking.TidSlutt,
+                    AntallGjester = booking.AntallGjester,
+                    Bekreftet = booking.Bekreftet,
+                    BekreftetAdminId = booking.BekreftetAdminId,
+                    BekreftetTid = booking.BekreftetTid
+                };
+
+                return CreatedAtAction(nameof(Get), new { id = booking.BookingId }, resultDto);
             }
             catch (Exception ex)
             {

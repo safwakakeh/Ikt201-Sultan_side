@@ -34,15 +34,17 @@ namespace Ikt201_Sultan_side.ApiControllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<RetterEgenskaperDto>> Create(RetterEgenskaperDto reDto)
+        public async Task<ActionResult<RetterEgenskaperDto>> Create(RetterEgenskaperCreateDto reDto)
         {
             if (reDto.RettId <= 0 || reDto.EgenskapId <= 0)
                 return BadRequest("RettId and EgenskapId must be positive.");
             var re = new RetterEgenskaper { RettId = reDto.RettId, EgenskapId = reDto.EgenskapId };
             _context.RetterEgenskaper.Add(re);
             await _context.SaveChangesAsync();
-            reDto.RetterEgenskaperId = re.RetterEgenskaperId;
-            return CreatedAtAction(nameof(Get), new { id = re.RetterEgenskaperId }, reDto);
+            
+            var resultDto = new RetterEgenskaperDto { RetterEgenskaperId = re.RetterEgenskaperId, RettId = re.RettId, EgenskapId = re.EgenskapId };
+
+            return CreatedAtAction(nameof(Get), new { id = re.RetterEgenskaperId }, resultDto);
         }
 
         [HttpPut("{id}")]

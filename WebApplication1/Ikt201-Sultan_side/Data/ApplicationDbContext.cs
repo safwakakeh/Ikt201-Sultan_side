@@ -35,5 +35,13 @@ public class ApplicationDbContext : IdentityDbContext
             .WithMany()
             .HasForeignKey(b => b.BordId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Ikt201_Sultan_side.Models.Person>()
+            .HasIndex(p => p.Epost)
+            .IsUnique();
+
+        modelBuilder.Entity<Ikt201_Sultan_side.Models.Person>()
+            .HasIndex(p => p.Telefon)
+            .IsUnique();
     }
 }

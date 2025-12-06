@@ -49,7 +49,7 @@ namespace Ikt201_Sultan_side.ApiControllers
 
 
         [HttpPost]
-        public async Task<ActionResult<RettDto>> Create(RettDto rettDto)
+        public async Task<ActionResult<RettDto>> Create(RettCreateDto rettDto)
         {
             if (string.IsNullOrWhiteSpace(rettDto.Navn) || rettDto.KategoriId <= 0)
                 return BadRequest("Navn and KategoriId are required.");
@@ -63,8 +63,18 @@ namespace Ikt201_Sultan_side.ApiControllers
             };
             _context.Retter.Add(rett);
             await _context.SaveChangesAsync();
-            rettDto.RettId = rett.RettId;
-            return CreatedAtAction(nameof(Get), new { id = rett.RettId }, rettDto);
+            
+            var resultDto = new RettDto
+            {
+                RettId = rett.RettId,
+                Navn = rett.Navn,
+                KategoriId = rett.KategoriId,
+                Pris = rett.Pris,
+                Tilgjengelighet = rett.Tilgjengelighet,
+                Beskrivelse = rett.Beskrivelse
+            };
+
+            return CreatedAtAction(nameof(Get), new { id = rett.RettId }, resultDto);
         }
 
 

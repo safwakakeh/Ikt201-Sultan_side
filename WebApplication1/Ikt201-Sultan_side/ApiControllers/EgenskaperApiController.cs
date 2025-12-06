@@ -37,15 +37,17 @@ namespace Ikt201_Sultan_side.ApiControllers
 
 
         [HttpPost]
-        public async Task<ActionResult<EgenskaperDto>> Create(EgenskaperDto egenskapDto)
+        public async Task<ActionResult<EgenskaperDto>> Create(EgenskaperCreateDto egenskapDto)
         {
             if (string.IsNullOrWhiteSpace(egenskapDto.Navn))
                 return BadRequest("Navn is required.");
             var egenskap = new Egenskaper { Navn = egenskapDto.Navn };
             _context.Egenskaper.Add(egenskap);
             await _context.SaveChangesAsync();
-            egenskapDto.EgenskapId = egenskap.EgenskapId;
-            return CreatedAtAction(nameof(Get), new { id = egenskap.EgenskapId }, egenskapDto);
+            
+            var resultDto = new EgenskaperDto { EgenskapId = egenskap.EgenskapId, Navn = egenskap.Navn };
+
+            return CreatedAtAction(nameof(Get), new { id = egenskap.EgenskapId }, resultDto);
         }
 
 
