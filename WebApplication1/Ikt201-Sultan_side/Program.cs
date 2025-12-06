@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Ikt201_Sultan_side.Data;
-using Ikt201_Sultan_side.Services; // ← LEGG TIL
+using Ikt201_Sultan_side.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +18,6 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-// ↓ REGISTRER SERVICES
 builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
@@ -39,6 +38,9 @@ else
 
 app.UseHttpsRedirection();
 app.UseRouting();
+
+// ↓↓↓ KRITISK FIX: Legg til UseAuthentication() FØR UseAuthorization() ↓↓↓
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
@@ -55,22 +57,31 @@ app.MapControllerRoute(
 app.MapRazorPages()
     .WithStaticAssets();
 
-// SEED ADMIN USER
+// SEED ADMIN USER - med bedre feilhåndtering
 var adminEmail = builder.Configuration["AdminUser:Email"];
 var adminPassword = builder.Configuration["AdminUser:Password"];
 
 if (!string.IsNullOrEmpty(adminEmail) && !string.IsNullOrEmpty(adminPassword))
 {
-    using (var scope = app.Services.CreateScope())
-    {
-        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    using var scope = app.Services.CreateScope();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
+    try
+    {
+        // Opprett Admin-rolle hvis den ikke finnes
         if (!await roleManager.RoleExistsAsync("Admin"))
         {
-            await roleManager.CreateAsync(new IdentityRole("Admin"));
+            var roleResult = await roleManager.CreateAsync(new IdentityRole("Admin"));
+            if (!roleResult.Succeeded)
+            {
+                logger.LogError("Kunne ikke opprette Admin-rolle: {Errors}", 
+                    string.Join(", ", roleResult.Errors.Select(e => e.Description)));
+            }
         }
 
+        // Opprett admin-bruker hvis den ikke finnes
         var adminUser = await userManager.FindByEmailAsync(adminEmail);
 
         if (adminUser == null)
@@ -81,9 +92,34 @@ if (!string.IsNullOrEmpty(adminEmail) && !string.IsNullOrEmpty(adminPassword))
                 Email = adminEmail,
                 EmailConfirmed = true
             };
-            await userManager.CreateAsync(adminUser, adminPassword);
-            await userManager.AddToRoleAsync(adminUser, "Admin");
+            
+            var createResult = await userManager.CreateAsync(adminUser, adminPassword);
+            
+            if (createResult.Succeeded)
+            {
+                await userManager.AddToRoleAsync(adminUser, "Admin");
+                logger.LogInformation("Admin-bruker opprettet: {Email}", adminEmail);
+            }
+            else
+            {
+                logger.LogError("Kunne ikke opprette admin-bruker: {Errors}", 
+                    string.Join(", ", createResult.Errors.Select(e => e.Description)));
+            }
+        }
+        else
+        {
+            // Sørg for at eksisterende admin-bruker har Admin-rollen
+            if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
+            {
+                await userManager.AddToRoleAsync(adminUser, "Admin");
+                logger.LogInformation("La til Admin-rolle for eksisterende bruker: {Email}", adminEmail);
+            }
         }
     }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Feil under seeding av admin-bruker");
+    }
 }
+
 app.Run();
