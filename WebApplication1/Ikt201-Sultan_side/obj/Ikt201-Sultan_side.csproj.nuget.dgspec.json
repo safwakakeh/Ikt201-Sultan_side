@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\taltu\\Desktop\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj": {}
+    "C:\\Users\\ingel\\Ikt201Prosjekt\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj": {}
   },
   "projects": {
-    "C:\\Users\\taltu\\Desktop\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj": {
+    "C:\\Users\\ingel\\Ikt201Prosjekt\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\taltu\\Desktop\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj",
+        "projectUniqueName": "C:\\Users\\ingel\\Ikt201Prosjekt\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj",
         "projectName": "Ikt201-Sultan_side",
-        "projectPath": "C:\\Users\\taltu\\Desktop\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj",
-        "packagesPath": "C:\\Users\\taltu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\taltu\\Desktop\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\obj\\",
+        "projectPath": "C:\\Users\\ingel\\Ikt201Prosjekt\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj",
+        "packagesPath": "C:\\Users\\ingel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ingel\\Ikt201Prosjekt\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\taltu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ingel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -51,6 +50,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Google.GenAI": {
+              "target": "Package",
+              "version": "[0.6.0, )"
+            },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.9, )"
@@ -91,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,6 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Ikt201_Sultan_side.Data;
+using Google.GenAI;
+using Microsoft.Extensions.Options;
+using Ikt201_Sultan_side.Models;
+using Ikt201_Sultan_side.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +19,21 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddControllersWithViews();
+
+// Gemini-oppsett
+builder.Services.Configure<GeminiOptions>(
+    builder.Configuration.GetSection("Gemini"));
+
+builder.Services.AddSingleton<Client>(sp =>
+{
+    var options = sp.GetRequiredService<IOptions<GeminiOptions>>().Value;
+    return new Client(apiKey: options.ApiKey);
+});
+
+builder.Services.AddScoped<GeminiChatService>();
+
 
 var app = builder.Build();
 
@@ -40,6 +60,8 @@ app.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
+
+app.MapControllers();
 
 app.MapRazorPages()
     .WithStaticAssets();
