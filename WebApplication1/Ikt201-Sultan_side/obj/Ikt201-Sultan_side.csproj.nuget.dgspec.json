@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\casmi\\ikt201g25h\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj": {}
+    "C:\\Users\\ingel\\Ikt201Prosjekt\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj": {}
   },
   "projects": {
-    "C:\\Users\\casmi\\ikt201g25h\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj": {
+    "C:\\Users\\ingel\\Ikt201Prosjekt\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\casmi\\ikt201g25h\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj",
+        "projectUniqueName": "C:\\Users\\ingel\\Ikt201Prosjekt\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj",
         "projectName": "Ikt201-Sultan_side",
-        "projectPath": "C:\\Users\\casmi\\ikt201g25h\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj",
-        "packagesPath": "C:\\Users\\casmi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\casmi\\ikt201g25h\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\obj\\",
+        "projectPath": "C:\\Users\\ingel\\Ikt201Prosjekt\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\Ikt201-Sultan_side.csproj",
+        "packagesPath": "C:\\Users\\ingel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ingel\\Ikt201Prosjekt\\Ikt201-Sultan_side\\WebApplication1\\Ikt201-Sultan_side\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\casmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ingel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -69,6 +69,10 @@
             "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",
               "version": "[9.0.9, )"
+            },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[50.0.0, )"
             }
           },
           "imports": [
@@ -90,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

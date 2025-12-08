@@ -371,16 +371,45 @@
                         cart[name].qty += qty;
                     }
 
-                    // reset quantity back to 1
                     qtyInput.value = 1;
-
                     renderCart();
                 });
             });
 
             checkoutBtn.addEventListener('click', function () {
-                alert('Takk for bestillingen! (Her kan dere senere koble til faktisk bestillingslogikk)');
+                const items = Object.values(cart).map(item => ({
+                    name: item.name,
+                    price: item.price,
+                    quantity: item.qty
+                }));
+
+                if (items.length === 0) {
+                    alert('Handlekurven er tom.');
+                    return;
+                }
+
+                fetch('/stripe/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ items: items })
+                })
+                    .then(async res => {
+                        if (!res.ok) {
+                            const text = await res.text();
+                            console.error('Stripe-feil, status:', res.status, text);
+                            throw new Error('Stripe-feil ' + res.status);
+                        }
+                        return res.json();
+                    })
+                    .then(({ url }) => {
+                        window.location = url;
+                    })
+                    .catch(err => {
+                        console.error('Feil i checkout:', err);
+                        alert('Betalingen feilet.');
+                    });
             });
         });
     </script>
 }
+
