@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Ikt201_Sultan_side.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Ikt201_Sultan_side.Controllers;
 
@@ -32,11 +33,12 @@ public class HomeController : Controller
     {
         return View();
     }
-
-    public IActionResult OmOss()
+    
+    public IActionResult BestillMat()
     {
         return View();
     }
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

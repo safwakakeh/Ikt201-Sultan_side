@@ -24,10 +24,6 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
-  background-color: gray;
-}
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
   color: var(--bs-secondary-color);
@@ -45,15 +41,18 @@ body {
 }
 
 /* Bord bestilling */
-.bordbestilling{
+.bordbestilling {
   display: block;
   text-align: center;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
-.bordbestilling h1, p{
+
+.bordbestilling h1,
+.bordbestilling p {
   margin: 0 0 1rem;
 }
+
 
 /* Nav */
 .navbar .nav-link:hover {
@@ -152,4 +151,221 @@ h2, h3, h4 {
   height: auto;
   display: block;
   margin: 0 auto;
+}
+
+
+.map-container {
+  width: 100%;
+  aspect-ratio: 1 / 1;       
+  border-radius: 10px;
+  overflow: visible;
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
+/* Center form layout */
+.bordbestilling {
+  min-height: 100vh;
+  padding-top: 120px;
+  padding-bottom: 100px; 
+}
+
+
+/* Card container */
+.bestillings-card {
+  background-color: #f2f2f2;
+  border: 2px solid #d4c39a;
+  max-width: 550px;
+  width: 100%;
+  border-radius: 18px;
+  box-shadow: 0px 6px 18px rgba(0,0,0,0.18);
+}
+/* Headings */
+.bestillingsTekst h1 {
+  color: #0f3d1e;
+  font-size: 2.2rem;
+  letter-spacing: 0.05em;
+}
+
+.bestillingsTekst p {
+  color: #0f3d1e;
+  opacity: 0.85;
+}
+
+/* Form labels */
+.bestillings-card label {
+  font-weight: 600;
+  color: #0f3d1e;
+}
+
+/* Form inputs */
+.bestillings-card .form-control,
+.bestillings-card select {
+  border-radius: 10px;
+  border: 1px solid #bfae88;
+  background-color: #fff;
+  padding: 10px;
+}
+
+.bestillings-card .form-control:focus {
+  border-color: #0f3d1e;
+  box-shadow: 0 0 0 0.15rem rgba(15,61,30,0.35);
+}
+
+/* Button matches navbar theme */
+.bestillings-card .btn-primary {
+  background-color: #0f3d1e;
+  border-color: #0f3d1e;
+  color: #d4c39a;
+  width: 100%;
+  padding: 12px;
+  border-radius: 14px;
+  font-size: 1.1rem;
+}
+
+.bestillings-card .btn-primary:hover {
+  background-color: #1b5e20;
+  border-color: #1b5e20;
+  color: #fff;
+}
+
+
+
+/* Card styling matching brand */
+.contact-card,
+.contact-map-card {
+  border: 2px solid #d4c39a;
+  border-radius: 14px;
+  background-color: #f2f2f2;
+}
+/* Section titles */
+.section-title {
+  color: #0f3d1e;
+  letter-spacing: 0.05em;
+}
+
+/* Remove table borders and simplify layout */
+.opening-hours td {
+  border: none !important;
+}
+
+/* Map iframe */
+.map-embed {
+  width: 100%;
+  height: 100%;
+  min-height: 350px;
+  border: none;
+  border-radius: 12px;
+}
+
+/* Contact links */
+.contact-link {
+  color: #0f3d1e;
+  font-weight: 600;
+  text-decoration: none;
+}
+.contact-link:hover {
+  color: #1b5e20;
+  text-decoration: underline;
+}
+
+/* Alert styling */ 
+.contact-container {
+  color: #0f3d1e;
+}
+
+.transport-alert {
+  background-color: #f2f2f2;
+  border-left: 6px solid #0f3d1e; /* grønn stripe */
+  border-radius: 10px;
+  padding: 25px 30px;
+  color: #0f3d1e;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+
+/* Meny-container */
+.meny-container {
+  color: #0f3d1e;
+}
+
+/* Meny-kort – samme som kontakt/bestilling */
+.meny-card {
+  background-color: #f2f2f2;
+  border: 2px solid #d4c39a;
+  border-radius: 14px;
+}
+
+/* Seksjonsoverskrifter */
+.meny-card .section-title {
+  color: #0f3d1e;
+  letter-spacing: 0.05em;
+}
+
+/* Meny-elementer */
+.meny-item {
+  margin-bottom: 1.3rem;
+}
+
+.meny-item h5 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  color: #0f3d1e;
+}
+
+.meny-item p {
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* Pris-tekst */
+.pris {
+  color: #0f3d1e;
+  font-weight: 700;
+}
+
+/* Kategori-navigasjon over menyen */
+.meny-nav-wrapper {
+  text-align: center;
+}
+
+.meny-nav .nav-link {
+  border-radius: 999px;
+  border: 1px solid #d4c39a;
+  margin: 0.2rem;
+  padding: 0.4rem 0.9rem;
+  color: #0f3d1e;
+  background-color: rgba(255,255,255,0.8);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.meny-nav .nav-link:hover {
+  background-color: #0f3d1e;
+  color: #d4c39a;
+}
+
+
+.order-cart-card {
+  background-color: #f2f2f2;
+  border: 2px solid #d4c39a;
+  border-radius: 14px;
+}
+
+.meny-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.meny-actions .qty-input {
+  max-width: 70px;
 }

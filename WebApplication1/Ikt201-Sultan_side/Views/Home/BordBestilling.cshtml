@@ -3,26 +3,30 @@
     ViewData["Title"] = "Bestill Bord";
 }
 
+
+
 <link rel="stylesheet" href="~/site.css" asp-append-version="true"/>
 
-<section class="bordbestilling">
-    <div class="bestillingsTekst">
-        <h1 class="overskrift">Bestill bord</h1>
-        <p>Her kan du bestille bord for ditt besøk.</p>
-    </div>
+<section class="bordbestilling d-flex justify-content-center align-items-start">
+    <div class="bestillings-card shadow-lg p-4 rounded-4">
+        <div class="bestillingsTekst text-center mb-4">
+            <h1 class="overskrift">Bestill bord</h1>
+            <p>Her kan du bestille bord for ditt besøk.</p>
+        </div>
 
     <form action="bestill" method="post">
 
+
         <!-- Navn -->
-        <label asp-for="Name" class="control-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <label asp-for="Navn" class="control-label"></label>
+        <input asp-for="Navn" class="form-control" />
+        <span asp-validation-for="Navn" class="text-danger"></span>
         <br />
 
         <!-- Telefon -->
-        <label asp-for="Phone" class="control-label"></label>
-        <input asp-for="Phone" class="form-control" type="tel" />
-        <span asp-validation-for="Phone" class="text-danger"></span>
+        <label asp-for="Tlf" class="control-label"></label>
+        <input asp-for="Tlf" class="form-control" type="tel" />
+        <span asp-validation-for="Tlf" class="text-danger"></span>
         <br />
 
         <!-- Email -->
@@ -31,11 +35,18 @@
         <span asp-validation-for="Email" class="text-danger"></span>
         <br />
 
-        <!-- Guests -->
-        <label asp-for="Guests" class="control-label"></label>
-        <select asp-for="Guests" asp-items="Model.GuestOptions" class="form-control"></select>
-        <span asp-validation-for="Guests" class="text-danger"></span>
+        <!-- Gjester -->
+        <!-- Gjester -->
+        <label for="Gjester" class="control-label">Antall gjester</label>
+        <select asp-for="Gjester" class="form-control">
+            @for (var i = 1; i <= 10; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        </select>
+        <span asp-validation-for="Gjester" class="text-danger"></span>
         <br />
+
 
         <!-- Time -->
         <label asp-for="Time" class="control-label"></label>
@@ -46,4 +57,5 @@
         <button type="submit" class="btn btn-primary">Bestill bord</button>
 
     </form>
+    </div>
 </section>

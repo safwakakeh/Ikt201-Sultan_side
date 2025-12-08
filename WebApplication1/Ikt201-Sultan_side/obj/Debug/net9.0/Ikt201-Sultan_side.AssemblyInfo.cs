@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Ikt201-Sultan_side")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e605154cbd2ddd67ec58f9edfe62ea630a2cb857")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d6f4925d8a68764a807eacdd4ad088f31dc18ec")]
 [assembly: System.Reflection.AssemblyProductAttribute("Ikt201-Sultan_side")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Ikt201-Sultan_side")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

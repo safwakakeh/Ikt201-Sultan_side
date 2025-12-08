@@ -1,0 +1,386 @@
+﻿@{
+    ViewData["Title"] = "Bestill mat";
+}
+
+<div class="container meny-container mt-5 mb-5">
+
+    <h1 class="text-center mb-3">Bestill mat</h1>
+    <p class="text-center mb-4">
+        Velg retter fra menyen og legg dem i handlekurven for å sende inn en bestilling.
+    </p>
+
+    <!-- Kategori-navigasjon -->
+    <div class="meny-nav-wrapper mb-4">
+        <ul class="nav meny-nav justify-content-center flex-wrap">
+            <li class="nav-item">
+                <a class="nav-link" href="#burger">Burger</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#pizza">Pizza</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#wraps">Wraps</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#grill">Grill & husets spesial</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#dessert">Dessert</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#drikke">Drikke</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- VENSTRE SIDE: MENY MED "LEGG I KURV" -->
+        <div class="col-lg-8">
+            <div class="row g-4">
+
+                <!-- BURGER -->
+                <div class="col-md-6" id="burger">
+                    <div class="card meny-card shadow-lg h-100">
+                        <div class="card-body p-4">
+                            <h3 class="section-title mb-3">Burger</h3>
+
+                            <div class="meny-item" data-name="Classic Burger" data-price="189">
+                                <h5>Classic Burger <span class="pris">189,-</span></h5>
+                                <p>Saftig biffburger med salat, tomat, løk og husets dressing.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+
+                            <div class="meny-item" data-name="Cheese Burger" data-price="199">
+                                <h5>Cheese Burger <span class="pris">199,-</span></h5>
+                                <p>Classic burger toppet med smeltet ost.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+
+                            <div class="meny-item" data-name="BBQ Burger" data-price="209">
+                                <h5>BBQ Burger <span class="pris">209,-</span></h5>
+                                <p>Burger med BBQ-saus, sprø løk og cheddar.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+
+                            <div class="meny-item" data-name="Chili Burger" data-price="209">
+                                <h5>Chili Burger <span class="pris">209,-</span></h5>
+                                <p>Med jalapeños, chili-majones og frisk salat.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+
+                            <div class="meny-item" data-name="Veggie Burger" data-price="189">
+                                <h5>Veggie Burger <span class="pris">189,-</span></h5>
+                                <p>Vegetarburger med salat, tomat og urte-dressing.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PIZZA -->
+                <div class="col-md-6" id="pizza">
+                    <div class="card meny-card shadow-lg h-100">
+                        <div class="card-body p-4">
+                            <h3 class="section-title mb-3">Pizza</h3>
+
+                            <div class="meny-item" data-name="Margherita" data-price="179">
+                                <h5>Margherita <span class="pris">179,-</span></h5>
+                                <p>Tomatsaus, ost og fersk basilikum.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+
+                            <div class="meny-item" data-name="Pizza Pepperoni" data-price="199">
+                                <h5>Pizza Pepperoni <span class="pris">199,-</span></h5>
+                                <p>Tomatsaus, ost og pepperoni.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+
+                            <div class="meny-item" data-name="Pizza Kylling" data-price="209">
+                                <h5>Pizza Kylling <span class="pris">209,-</span></h5>
+                                <p>Kylling, paprika, rødløk og hvitløksdressing.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+
+                            <div class="meny-item" data-name="Vegetarpizza" data-price="199">
+                                <h5>Vegetarpizza <span class="pris">199,-</span></h5>
+                                <p>Sesongens grønnsaker, ost og tomatsaus.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+
+                            <div class="meny-item" data-name="Pizza Sultan" data-price="229">
+                                <h5>Pizza Sultan <span class="pris">229,-</span></h5>
+                                <p>Husets spesialpizza med kjøtt, grønnsaker og urter.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WRAPS -->
+                <div class="col-md-6" id="wraps">
+                    <div class="card meny-card shadow-lg h-100">
+                        <div class="card-body p-4">
+                            <h3 class="section-title mb-3">Wraps</h3>
+
+                            <div class="meny-item" data-name="Kyllingwrap" data-price="169">
+                                <h5>Kyllingwrap <span class="pris">169,-</span></h5>
+                                <p>Grillet kylling, salat, grønnsaker og dressing i tortilla.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+
+                            <div class="meny-item" data-name="Falafelwrap" data-price="159">
+                                <h5>Falafelwrap <span class="pris">159,-</span></h5>
+                                <p>Falafel, salat, syltet rødløk og tahinisaus.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+
+                            <div class="meny-item" data-name="Beef Wrap" data-price="179">
+                                <h5>Beef Wrap <span class="pris">179,-</span></h5>
+                                <p>Strimlet biff, salat og hvitløksdressing.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+
+                            <div class="meny-item" data-name="Halloumi Wrap" data-price="179">
+                                <h5>Halloumi Wrap <span class="pris">179,-</span></h5>
+                                <p>Grillet halloumi, salat og frisk yoghurtdressing.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GRILL -->
+                <div class="col-md-6" id="grill">
+                    <div class="card meny-card shadow-lg h-100">
+                        <div class="card-body p-4">
+                            <h3 class="section-title mb-3">Grill & husets spesial</h3>
+
+                            <div class="meny-item" data-name="Mixed Grill" data-price="259">
+                                <h5>Mixed Grill <span class="pris">259,-</span></h5>
+                                <p>Et utvalg av våre beste kjøttretter, med ris og salat.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+
+                            <div class="meny-item" data-name="Sultan Spesial" data-price="239">
+                                <h5>Sultan Spesial <span class="pris">239,-</span></h5>
+                                <p>Husets favoritt – perfekt for deg som vil prøve litt av alt.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+
+                            <div class="meny-item" data-name="Kyllingfilet fra grillen" data-price="219">
+                                <h5>Kyllingfilet fra grillen <span class="pris">219,-</span></h5>
+                                <p>Grillet kyllingfilet med grønnsaker og saus.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DESSERT -->
+                <div class="col-md-6" id="dessert">
+                    <div class="card meny-card shadow-lg h-100">
+                        <div class="card-body p-4">
+                            <h3 class="section-title mb-3">Dessert</h3>
+
+                            <div class="meny-item" data-name="Baklava" data-price="69">
+                                <h5>Baklava <span class="pris">69,-</span></h5>
+                                <p>Håndlaget baklava med nøtter og søt sirup.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+
+                            <div class="meny-item" data-name="Dagens kake" data-price="59">
+                                <h5>Dagens kake <span class="pris">59,-</span></h5>
+                                <p>Spør betjeningen om dagens kake.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DRIKKE -->
+                <div class="col-md-6" id="drikke">
+                    <div class="card meny-card shadow-lg h-100">
+                        <div class="card-body p-4">
+                            <h3 class="section-title mb-3">Drikke</h3>
+
+                            <div class="meny-item" data-name="Kaffe" data-price="35">
+                                <h5>Kaffe <span class="pris">35,-</span></h5>
+                                <p>Bryggkaffe.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+
+                            <div class="meny-item" data-name="Mineralvann" data-price="39">
+                                <h5>Mineralvann <span class="pris">39,-</span></h5>
+                                <p>Coca-Cola, Fanta, Sprite m.m.</p>
+                                <div class="meny-actions">
+                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- /row -->
+        </div>
+
+        <!-- HØYRE SIDE: HANDLEKURV -->
+        <div class="col-lg-4">
+            <div class="card order-cart-card shadow-lg h-100">
+                <div class="card-body p-4 d-flex flex-column">
+                    <h3 class="section-title mb-3">Handlekurv</h3>
+
+                    <div id="cart-empty" class="text-muted mb-2">
+                        Kurven er tom.
+                    </div>
+
+                    <ul id="cart-items" class="list-unstyled flex-grow-1 mb-3"></ul>
+
+                    <div class="d-flex justify-content-between mb-3 fw-bold">
+                        <span>Sum:</span>
+                        <span id="cart-total">0,-</span>
+                    </div>
+
+                    <button type="button" class="btn btn-primary w-100" id="checkout-btn" disabled>
+                        Send bestilling
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cart = {};
+            const cartItemsEl = document.getElementById('cart-items');
+            const cartTotalEl = document.getElementById('cart-total');
+            const cartEmptyEl = document.getElementById('cart-empty');
+            const checkoutBtn = document.getElementById('checkout-btn');
+
+            function renderCart() {
+                cartItemsEl.innerHTML = '';
+                let total = 0;
+                const entries = Object.values(cart);
+
+                if (entries.length === 0) {
+                    cartEmptyEl.style.display = 'block';
+                    checkoutBtn.disabled = true;
+                    cartTotalEl.textContent = '0,-';
+                    return;
+                }
+
+                cartEmptyEl.style.display = 'none';
+                checkoutBtn.disabled = false;
+
+                entries.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'd-flex justify-content-between align-items-center mb-2';
+
+                    const left = document.createElement('div');
+                    left.innerHTML = `<strong>${item.name}</strong><br><small>${item.qty} stk</small>`;
+
+                    const right = document.createElement('div');
+                    right.innerHTML = `<span>${item.price * item.qty},-</span>`;
+
+                    li.appendChild(left);
+                    li.appendChild(right);
+
+                    cartItemsEl.appendChild(li);
+
+                    total += item.price * item.qty;
+                });
+
+                cartTotalEl.textContent = total + ',-';
+            }
+
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function () {
+                    const itemEl = this.closest('.meny-item');
+                    const name = itemEl.getAttribute('data-name');
+                    const price = parseInt(itemEl.getAttribute('data-price'));
+                    const qtyInput = itemEl.querySelector('.qty-input');
+                    const qty = parseInt(qtyInput.value) || 1;
+
+                    if (!cart[name]) {
+                        cart[name] = { name, price, qty };
+                    } else {
+                        cart[name].qty += qty;
+                    }
+
+                    // reset quantity back to 1
+                    qtyInput.value = 1;
+
+                    renderCart();
+                });
+            });
+
+            checkoutBtn.addEventListener('click', function () {
+                alert('Takk for bestillingen! (Her kan dere senere koble til faktisk bestillingslogikk)');
+            });
+        });
+    </script>
+}

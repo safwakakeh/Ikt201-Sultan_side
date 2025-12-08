@@ -2,129 +2,103 @@
     ViewData["Title"] = "Kontakt oss";
 }
 
-<div class="container mt-4">
-    <h1 class="mb-4">Kontakt oss</h1>
-    
-    <div class="row">
-        <!-- Contact Information Section -->
-        <div class="col-lg-6 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title mb-4">Kontaktinformasjon</h3>
-                    
-                    <div class="mb-4">
-                        <h5><i class="bi bi-geo-alt-fill"></i> Adresse</h5>
+<div class="container contact-container mt-5 mb-5">
+
+    <h1 class="text-center mb-5">Kontakt oss</h1>
+
+    <div class="row g-4">
+
+        <!-- Contact Info -->
+        <div class="col-lg-6">
+            <div class="card contact-card shadow-lg h-100">
+                <div class="card-body p-4">
+
+                    <h3 class="section-title mb-4">Kontaktinformasjon</h3>
+
+                    <div class="info-block mb-4">
+                        <h5><i class="bi bi-geo-alt-fill me-2"></i>Adresse</h5>
                         <p class="ms-4">
-                            Grønlandsleiret 16a<br>
+                            Grønlandsleiret 16b<br>
                             0190 Oslo<br>
                             Norge
                         </p>
                     </div>
-                    
-                    <div class="mb-4">
-                        <h5><i class="bi bi-telephone-fill"></i> Telefon</h5>
+
+                    <div class="info-block mb-4">
+                        <h5><i class="bi bi-telephone-fill me-2"></i>Telefon</h5>
                         <p class="ms-4">
-                            <a href="tel:+4712345678">+47 123 45 678</a>
+                            <a href="tel:+4712345678" class="contact-link">+47 123 45 678</a>
                         </p>
                     </div>
-                    
-                    <div class="mb-4">
-                        <h5><i class="bi bi-envelope-fill"></i> E-post</h5>
+
+                    <div class="info-block mb-4">
+                        <h5><i class="bi bi-envelope-fill me-2"></i>E-post</h5>
                         <p class="ms-4">
-                            <a href="mailto:kontakt@restaurant.no">kontakt@restaurant.no</a>
+                            <a href="mailto:kontakt@restaurant.no" class="contact-link">kontakt@restaurant.no</a>
                         </p>
                     </div>
-                    
-                    <div class="mb-3">
-                        <h5><i class="bi bi-clock-fill"></i> Åpningstider</h5>
-                        <table class="table table-sm ms-1">
+
+                    <div class="info-block mb-3">
+                        <h5><i class="bi bi-clock-fill me-2"></i>Åpningstider</h5>
+                        <table class="table table-sm opening-hours ms-1">
                             <tbody>
-                                <tr>
-                                    <td><strong>Mandag - Fredag:</strong></td>
-                                    <td>11:00 - 22:00</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Lørdag:</strong></td>
-                                    <td>12:00 - 23:00</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Søndag:</strong></td>
-                                    <td>12:00 - 21:00</td>
-                                </tr>
+                                <tr><td><strong>Mandag–Fredag:</strong></td><td>11:00 – 22:00</td></tr>
+                                <tr><td><strong>Lørdag:</strong></td><td>12:00 – 23:00</td></tr>
+                                <tr><td><strong>Søndag:</strong></td><td>12:00 – 21:00</td></tr>
                             </tbody>
                         </table>
                     </div>
+
                 </div>
             </div>
         </div>
-        
-        <!-- Map Section -->
-        <div class="col-lg-6 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body p-0">
-                    <h3 class="card-title p-3 pb-0">Finn oss her</h3>
-                    <div class="map-container">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2000.0234567890123!2d10.7603!3d59.9139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46416e7d2e0e8c8d%3A0x1234567890abcdef!2sGr%C3%B8nlandsleiret%2016A%2C%200190%20Oslo!5e0!3m2!1sno!2sno!4v1234567890123!5m2!1sno!2sno"
-                            width="100%" 
-                            height="450" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
+
+        <!-- Contact Form -->
+        <div class="col-lg-6">
+            <div class="card contact-card shadow-lg h-100">
+                <div class="card-body p-4">
+
+                    <h3 class="section-title mb-4">Send oss en melding</h3>
+
+                    <form asp-action="KontaktOss" method="post">
+
+                        <div class="mb-3">
+                            <label for="Navn" class="form-label">Navn</label>
+                            <input type="text" class="form-control" id="Navn" name="Navn" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Email" class="form-label">E-post</label>
+                            <input type="email" class="form-control" id="Email" name="Email" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Melding" class="form-label">Melding</label>
+                            <textarea class="form-control" id="Melding" name="Melding" rows="5" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Send melding</button>
+
+                    </form>
+
                 </div>
             </div>
         </div>
+
+
     </div>
-    
-    <!-- Additional Information -->
-    <div class="row mt-4">
+
+    <!-- Transport help -->
+    <div class="row mt-5">
         <div class="col-12">
-            <div class="alert alert-info">
-                <h5 class="alert-heading">Hvordan komme seg hit</h5>
+            <div class="alert transport-alert">
+                <h5 class="alert-heading">Hvordan kommer du deg til oss?</h5>
                 <p class="mb-0">
-                    <strong>Med kollektivtransport:</strong> T-bane til Grønland stasjon (5 min gange)<br>
-                    <strong>Med bil:</strong> Begrenset gateparkering tilgjengelig. Vi anbefaler offentlig transport.
+                    <strong>Kollektivtransport:</strong> T-bane til Grønland stasjon (5 min gange)<br>
+                    <strong>Med bil:</strong> Begrenset gateparkering. Vi anbefaler offentlig transport.
                 </p>
             </div>
         </div>
     </div>
-</div>
 
-<style>
-    .map-container {
-        position: relative;
-        overflow: hidden;
-        padding-bottom: 0;
-    }
-    
-    .map-container iframe {
-        display: block;
-    }
-    
-    .card {
-        border-radius: 10px;
-    }
-    
-    .card-title {
-        color: #333;
-        font-weight: 600;
-    }
-    
-    h5 {
-        color: #555;
-        font-weight: 600;
-        margin-bottom: 10px;
-    }
-    
-    a {
-        color: #0066cc;
-        text-decoration: none;
-    }
-    
-    a:hover {
-        text-decoration: underline;
-    }
-</style>
+</div>
