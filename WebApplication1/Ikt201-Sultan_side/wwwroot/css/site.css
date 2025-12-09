@@ -309,7 +309,9 @@ h2, h3, h4 {
 
 /* Meny-elementer */
 .meny-item {
-  margin-bottom: 1.3rem;
+  transition: opacity 0.25s ease, font-weight 0.25s ease;
+  margin-bottom: 28px;
+
 }
 
 .meny-item h5 {
@@ -355,10 +357,11 @@ h2, h3, h4 {
 
 
 .order-cart-card {
-  background-color: #f2f2f2;
-  border: 2px solid #d4c39a;
-  border-radius: 14px;
+  max-height: 450px;      
+  height: auto;          
+  overflow-y: auto;       
 }
+
 
 .meny-actions {
   display: flex;
@@ -369,3 +372,12 @@ h2, h3, h4 {
 .meny-actions .qty-input {
   max-width: 70px;
 }
+
+.meny-filter label {
+  cursor: pointer;
+}
+
+.meny-filter input[type="checkbox"] {
+  margin-right: 4px;
+}
+

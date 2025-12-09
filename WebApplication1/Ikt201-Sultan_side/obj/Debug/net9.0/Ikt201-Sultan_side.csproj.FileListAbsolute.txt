@@ -875,4 +875,4 @@ C:\Users\casmi\ikt201g25h\Ikt201-Sultan_side\WebApplication1\Ikt201-Sultan_side\
 C:\Users\casmi\ikt201g25h\Ikt201-Sultan_side\WebApplication1\Ikt201-Sultan_side\obj\Debug\net9.0\Ikt201-Sultan_side.pdb
 C:\Users\casmi\ikt201g25h\Ikt201-Sultan_side\WebApplication1\Ikt201-Sultan_side\obj\Debug\net9.0\Ikt201-Sultan_side.genruntimeconfig.cache
 C:\Users\casmi\ikt201g25h\Ikt201-Sultan_side\WebApplication1\Ikt201-Sultan_side\obj\Debug\net9.0\ref\Ikt201-Sultan_side.dll
-C:\Users\casmi\ikt201g25h\Ikt201-Sultan_side\WebApplication1\Ikt201-Sultan_side\obj\Debug\net9.0\compressed\4zb6ch3xjt-9n0p8g58es.gz
+C:\Users\casmi\ikt201g25h\Ikt201-Sultan_side\WebApplication1\Ikt201-Sultan_side\obj\Debug\net9.0\compressed\4zb6ch3xjt-qk5xxb6huf.gz
