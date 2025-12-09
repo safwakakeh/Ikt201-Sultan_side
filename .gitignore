@@ -1,3 +1,83 @@
+# .NET build artifacts
+bin/
+obj/
+
+# NuGet packages
+*.nupkg
+# NuGet restore files
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.vspscc
+*.vssscc
+
+# VS Code
+.vscode/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Visual Studio
+.vs/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Database
+*.db
+app.db
+
+# Logs
+*.log
+
+# Frontend folders (if recreated)
+wwwroot/
+Views/
+
+# Others
+*.swp
+*.tmp
+*.bak
+
+# Test results
+TestResults/
+
+# Publish output
+publish/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Node.js (if used)
+node_modules/
+
+# Python (if used)
+__pycache__/
+*.pyc
+
+# MacOS
+*.DS_Store
+
+# Windows
+*.Thumbs.db
+
+# Linux
+*~
+WebApplication1/Ikt201-Sultan_side/app.db
+WebApplication1/Ikt201-Sultan_side/app.db
+WebApplication1/Ikt201-Sultan_side/obj/Debug/net9.0/Ikt201-Sultan_side.AssemblyInfo.cs
+WebApplication1/Ikt201-Sultan_side/obj/Debug/net9.0/Ikt201-Sultan_side.AssemblyInfoInputs.cache
+WebApplication1/Ikt201-Sultan_side/app.db-shm
+WebApplication1/Ikt201-Sultan_side/app.db-wal
+
 bin/
 obj/
 *.user
