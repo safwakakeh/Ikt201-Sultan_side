@@ -3,6 +3,7 @@ using System;
 using Ikt201_Sultan_side.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ikt201_Sultan_side.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251206005547_AddBookingTable")]
+    partial class AddBookingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.9");
@@ -132,12 +135,6 @@ namespace Ikt201_Sultan_side.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("PersonId");
-
-                    b.HasIndex("Epost")
-                        .IsUnique();
-
-                    b.HasIndex("Telefon")
-                        .IsUnique();
 
                     b.ToTable("Personer");
                 });
@@ -447,17 +444,12 @@ namespace Ikt201_Sultan_side.Data.Migrations
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                    {
-                        b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                            .WithMany()
-                            .HasForeignKey("UserId")
-                            .OnDelete(DeleteBehavior.Cascade)
-                            .IsRequired();
-                    });
-
-            modelBuilder.Entity("Ikt201_Sultan_side.Models.Order", b =>
                 {
-                    b.Navigation("OrderItems");
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

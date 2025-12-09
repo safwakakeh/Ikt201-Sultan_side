@@ -23,12 +23,16 @@ builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 else
 {
