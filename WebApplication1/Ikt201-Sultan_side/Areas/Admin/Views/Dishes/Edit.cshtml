@@ -1,0 +1,132 @@
+@model Dish
+@{
+    ViewData["Title"] = "Rediger rett";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index">Retter</a></li>
+                <li class="breadcrumb-item active">Rediger</li>
+            </ol>
+        </nav>
+        <h1><i class="bi bi-pencil"></i> Rediger: @Model.Name</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="ImagePath" />
+                    <input type="hidden" asp-for="CreatedAt" />
+                    
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Navn på rett *</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Category" class="form-label">Kategori *</label>
+                            <select asp-for="Category" class="form-select">
+                                <option value="Forretter">Forretter</option>
+                                <option value="Hovedretter">Hovedretter</option>
+                                <option value="Pizza">Pizza</option>
+                                <option value="Pasta">Pasta</option>
+                                <option value="Burger">Burger</option>
+                                <option value="Salat">Salat</option>
+                                <option value="Dessert">Dessert</option>
+                                <option value="Drikke">Drikke</option>
+                            </select>
+                            <span asp-validation-for="Category" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Price" class="form-label">Pris (kr) *</label>
+                            <input asp-for="Price" class="form-control" type="number" step="0.01" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">Beskrivelse</label>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Ingredients" class="form-label">Ingredienser</label>
+                        <textarea asp-for="Ingredients" class="form-control" rows="2"></textarea>
+                        <span asp-validation-for="Ingredients" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Allergens" class="form-label">Allergener (kommaseparert)</label>
+                        <input asp-for="Allergens" class="form-control" />
+                        <span asp-validation-for="Allergens" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nåværende bilde</label>
+                        @if (!string.IsNullOrEmpty(Model.ImagePath))
+                        {
+                            <div class="mb-2">
+                                <img src="@Model.ImagePath" alt="@Model.Name" class="img-thumbnail" style="max-width: 200px;" />
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted">Ingen bilde lastet opp</p>
+                        }
+                        
+                        <label for="imageFile" class="form-label">Last opp nytt bilde (valgfritt)</label>
+                        <input type="file" name="imageFile" id="imageFile" class="form-control" accept="image/*" />
+                        <small class="form-text text-muted">La stå tomt for å beholde eksisterende bilde</small>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input asp-for="IsAvailable" class="form-check-input" type="checkbox" />
+                        <label asp-for="IsAvailable" class="form-check-label">
+                            Tilgjengelig for bestilling
+                        </label>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Lagre endringer
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Avbryt
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-clock-history"></i> Informasjon</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Opprettet:</strong><br>@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</p>
+                @if (Model.UpdatedAt.HasValue)
+                {
+                    <p><strong>Sist oppdatert:</strong><br>@Model.UpdatedAt.Value.ToString("dd.MM.yyyy HH:mm")</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

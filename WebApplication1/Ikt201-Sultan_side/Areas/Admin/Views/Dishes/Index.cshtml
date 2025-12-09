@@ -1,0 +1,125 @@
+@model IEnumerable<Dish>
+@{
+    ViewData["Title"] = "Administrer Retter";
+}
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h1><i class="bi bi-egg-fried"></i> Retter på Menyen</h1>
+    </div>
+    <div class="col-md-6 text-end">
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Legg til ny rett
+        </a>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i> Ingen retter funnet. Legg til din første rett!
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 80px;">Bilde</th>
+                            <th>Navn</th>
+                            <th>Kategori</th>
+                            <th>Pris</th>
+                            <th>Status</th>
+                            <th style="width: 200px;">Handlinger</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var dish in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(dish.ImagePath))
+                                    {
+                                        <img src="@dish.ImagePath" alt="@dish.Name" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                    }
+                                    else
+                                    {
+                                        <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                            <i class="bi bi-image"></i>
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    <strong>@dish.Name</strong>
+                                    @if (!string.IsNullOrEmpty(dish.Description))
+                                    {
+                                        <br><small class="text-muted">@(dish.Description.Length > 50 ? dish.Description.Substring(0, 50) + "..." : dish.Description)</small>
+                                    }
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary">@dish.Category</span>
+                                </td>
+                                <td>
+                                    <strong>@dish.Price.ToString("N2") kr</strong>
+                                </td>
+                                <td>
+                                    @if (dish.IsAvailable)
+                                    {
+                                        <span class="badge bg-success">Tilgjengelig</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Ikke tilgjengelig</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a asp-action="Edit" asp-route-id="@dish.Id" class="btn btn-outline-primary" title="Rediger">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        
+                                        <form asp-action="ToggleAvailability" asp-route-id="@dish.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-outline-warning" title="@(dish.IsAvailable ? "Marker som utsolgt" : "Marker som tilgjengelig")">
+                                                <i class="bi bi-@(dish.IsAvailable ? "x-circle" : "check-circle")"></i>
+                                            </button>
+                                        </form>
+                                        
+                                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal@(dish.Id)" title="Slett">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Delete Modal -->
+                            <div class="modal fade" id="deleteModal@(dish.Id)" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Bekreft sletting</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Er du sikker på at du vil slette <strong>@dish.Name</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Avbryt</button>
+                                            <form asp-action="Delete" asp-route-id="@dish.Id" method="post" class="d-inline">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-danger">Slett</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}

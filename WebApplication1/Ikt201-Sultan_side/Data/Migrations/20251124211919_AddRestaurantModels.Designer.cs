@@ -3,6 +3,7 @@ using System;
 using Ikt201_Sultan_side.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,70 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ikt201_Sultan_side.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251124211919_AddRestaurantModels")]
+    partial class AddRestaurantModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.9");
-
-            modelBuilder.Entity("Ikt201_Sultan_side.Models.Booking", b =>
-                {
-                    b.Property<int>("BookingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<short>("AntallGjester")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("Bekreftet")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("BekreftetAdminId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("BekreftetTid")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("BordId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PersonId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("Tid")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("TidSlutt")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("BookingId");
-
-                    b.HasIndex("BekreftetAdminId");
-
-                    b.HasIndex("BordId");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("Bookinger");
-                });
-
-            modelBuilder.Entity("Ikt201_Sultan_side.Models.Bord", b =>
-                {
-                    b.Property<int>("BordId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<short>("MaksPlasser")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<short>("Plasser")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("BordId");
-
-                    b.ToTable("Bord");
-                });
 
             modelBuilder.Entity("Ikt201_Sultan_side.Models.Dish", b =>
                 {
@@ -117,38 +62,6 @@ namespace Ikt201_Sultan_side.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Dishes");
-                });
-
-            modelBuilder.Entity("Ikt201_Sultan_side.Models.Egenskaper", b =>
-                {
-                    b.Property<int>("EgenskapId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Navn")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("EgenskapId");
-
-                    b.ToTable("Egenskaper");
-                });
-
-            modelBuilder.Entity("Ikt201_Sultan_side.Models.Kategori", b =>
-                {
-                    b.Property<int>("KategoriId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Navn")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("KategoriId");
-
-                    b.ToTable("Kategorier");
                 });
 
             modelBuilder.Entity("Ikt201_Sultan_side.Models.Order", b =>
@@ -216,41 +129,6 @@ namespace Ikt201_Sultan_side.Data.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("Ikt201_Sultan_side.Models.Person", b =>
-                {
-                    b.Property<int>("PersonId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("Admin")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Epost")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Navn")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Telefon")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("PersonId");
-
-                    b.HasIndex("Epost")
-                        .IsUnique();
-
-                    b.HasIndex("Telefon")
-                        .IsUnique();
-
-                    b.ToTable("Personer");
-                });
-
             modelBuilder.Entity("Ikt201_Sultan_side.Models.Reservation", b =>
                 {
                     b.Property<int>("Id")
@@ -288,52 +166,6 @@ namespace Ikt201_Sultan_side.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Reservations");
-                });
-
-            modelBuilder.Entity("Ikt201_Sultan_side.Models.Rett", b =>
-                {
-                    b.Property<int>("RettId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Beskrivelse")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("KategoriId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Navn")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<float>("Pris")
-                        .HasColumnType("REAL");
-
-                    b.Property<bool>("Tilgjengelighet")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("RettId");
-
-                    b.ToTable("Retter");
-                });
-
-            modelBuilder.Entity("Ikt201_Sultan_side.Models.RetterEgenskaper", b =>
-                {
-                    b.Property<int>("RetterEgenskaperId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("EgenskapId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("RettId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("RetterEgenskaperId");
-
-                    b.ToTable("RetterEgenskaper");
                 });
 
             modelBuilder.Entity("Ikt201_Sultan_side.Models.Review", b =>
@@ -558,26 +390,6 @@ namespace Ikt201_Sultan_side.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Ikt201_Sultan_side.Models.Booking", b =>
-                {
-                    b.HasOne("Ikt201_Sultan_side.Models.Person", null)
-                        .WithMany()
-                        .HasForeignKey("BekreftetAdminId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Ikt201_Sultan_side.Models.Bord", null)
-                        .WithMany()
-                        .HasForeignKey("BordId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Ikt201_Sultan_side.Models.Person", null)
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Ikt201_Sultan_side.Models.OrderItem", b =>
