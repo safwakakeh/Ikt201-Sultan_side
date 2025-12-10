@@ -14,7 +14,14 @@
             <p>Her kan du bestille bord for ditt besøk.</p>
         </div>
 
-    <form action="bestill" method="post">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success text-center">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+    <form asp-action="Bestill" method="post">
 
 
         <!-- Navn -->

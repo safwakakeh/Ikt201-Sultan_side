@@ -1,5 +1,7 @@
-﻿@{
+﻿@model IEnumerable<Ikt201_Sultan_side.Models.Dish>
+@{
     ViewData["Title"] = "Bestill mat";
+    var categories = Model.Select(d => d.Category).Distinct().OrderBy(c => c).ToList();
 }
 
 <div class="container meny-container mt-5 mb-5">
@@ -58,24 +60,13 @@
     <!-- Kategori-navigasjon -->
     <div class="meny-nav-wrapper mb-4">
         <ul class="nav meny-nav justify-content-center flex-wrap">
-            <li class="nav-item">
-                <a class="nav-link" href="#burger">Burger</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#pizza">Pizza</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#wraps">Wraps</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#grill">Grill & husets spesial</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#dessert">Dessert</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#drikke">Drikke</a>
-            </li>
+            @foreach (var cat in categories)
+            {
+                var slug = cat.ToLower().Replace(" ", "-");
+                <li class="nav-item">
+                    <a class="nav-link" href="#@slug">@cat</a>
+                </li>
+            }
         </ul>
     </div>
 
@@ -84,436 +75,51 @@
         <!-- VENSTRE SIDE: MENY MED "LEGG I KURV" -->
         <div class="col-lg-8">
             <div class="row g-4">
+                @foreach (var cat in categories)
+                {
+                    var slug = cat.ToLower().Replace(" ", "-");
+                    var dishesInCategory = Model.Where(d => d.Category == cat);
 
-                <!-- BURGER -->
-                <div class="col-md-6" id="burger">
-                    <div class="card meny-card shadow-lg h-100">
-                        <div class="card-body p-4">
-                            <h3 class="section-title mb-3">Burger</h3>
+                    <div class="col-md-6" id="@slug">
+                        <div class="card meny-card shadow-lg h-100">
+                            <div class="card-body p-4">
+                                <h3 class="section-title mb-3">@cat</h3>
 
-                            <div class="meny-item"
-                                 data-name="Classic Burger" data-price="189"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>Classic Burger <span class="pris">189,-</span></h5>
-                                <p>Saftig biffburger med salat, tomat, løk og husets dressing.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
+                                @foreach (var dish in dishesInCategory)
+                                {
+                                    var allergens = dish.Allergens?.ToLower() ?? "";
+                                    var hasGluten = allergens.Contains("gluten") || allergens.Contains("hvete") ? "true" : "false";
+                                    var hasMelk = allergens.Contains("melk") || allergens.Contains("laktose") ? "true" : "false";
+                                    var hasFisk = allergens.Contains("fisk") ? "true" : "false";
+                                    var hasNotter = allergens.Contains("nøtter") || allergens.Contains("mandler") ? "true" : "false";
+                                    var hasPeanotter = allergens.Contains("peanøtter") ? "true" : "false";
+                                    
+                                    // Heuristics for properties
+                                    var isVegan = (dish.Name.ToLower().Contains("vegan") || (dish.Description?.ToLower().Contains("vegan") ?? false)) ? "true" : "false";
+                                    var isHalal = "true"; // Assuming Sultan is Halal by default
 
-                            <div class="meny-item"
-                                 data-name="Cheese Burger" data-price="199"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>Cheese Burger <span class="pris">199,-</span></h5>
-                                <p>Classic burger toppet med smeltet ost.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="BBQ Burger" data-price="209"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>BBQ Burger <span class="pris">209,-</span></h5>
-                                <p>Burger med BBQ-saus, sprø løk og cheddar.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Chili Burger" data-price="209"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>Chili Burger <span class="pris">209,-</span></h5>
-                                <p>Med jalapeños, chili-majones og frisk salat.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Veggie Burger" data-price="189"
-                                 data-glutenkorn="true" data-vegan="true" data-halal="true">
-                                <h5>Veggie Burger <span class="pris">189,-</span></h5>
-                                <p>Vegetarburger med salat, tomat og urte-dressing.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Sultan Burger" data-price="219"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>Sultan Burger <span class="pris">219,-</span></h5>
-                                <p>Husets signatur-burger med ost, bacon og spesialdressing.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
+                                    <div class="meny-item"
+                                         data-name="@dish.Name"
+                                         data-price="@dish.Price.ToString("0")"
+                                         data-glutenkorn="@hasGluten"
+                                         data-melk="@hasMelk"
+                                         data-fisk="@hasFisk"
+                                         data-notter="@hasNotter"
+                                         data-peanotter="@hasPeanotter"
+                                         data-vegan="@isVegan"
+                                         data-halal="@isHalal">
+                                        <h5>@dish.Name <span class="pris">@dish.Price.ToString("0"),-</span></h5>
+                                        <p>@dish.Description</p>
+                                        <div class="meny-actions">
+                                            <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
+                                            <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- PIZZA -->
-                <div class="col-md-6" id="pizza">
-                    <div class="card meny-card shadow-lg h-100">
-                        <div class="card-body p-4">
-                            <h3 class="section-title mb-3">Pizza</h3>
-
-                            <div class="meny-item"
-                                 data-name="Margherita" data-price="179"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>Margherita <span class="pris">179,-</span></h5>
-                                <p>Tomatsaus, ost og fersk basilikum.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Pizza Pepperoni" data-price="199"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>Pizza Pepperoni <span class="pris">199,-</span></h5>
-                                <p>Tomatsaus, ost og pepperoni.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Pizza Kylling" data-price="209"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>Pizza Kylling <span class="pris">209,-</span></h5>
-                                <p>Kylling, paprika, rødløk og hvitløksdressing.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Vegetarpizza" data-price="199"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>Vegetarpizza <span class="pris">199,-</span></h5>
-                                <p>Sesongens grønnsaker, ost og tomatsaus.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Pizza Sultan" data-price="229"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>Pizza Sultan <span class="pris">229,-</span></h5>
-                                <p>Husets spesialpizza med kjøtt, grønnsaker og urter.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Pizza Spicy" data-price="219"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>Pizza Spicy <span class="pris">219,-</span></h5>
-                                <p>Stærk variant med spicy kjøtt, chili og jalapeños.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- WRAPS -->
-                <div class="col-md-6" id="wraps">
-                    <div class="card meny-card shadow-lg h-100">
-                        <div class="card-body p-4">
-                            <h3 class="section-title mb-3">Wraps</h3>
-
-                            <div class="meny-item"
-                                 data-name="Kyllingwrap" data-price="169"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>Kyllingwrap <span class="pris">169,-</span></h5>
-                                <p>Grillet kylling, salat, grønnsaker og dressing i tortilla.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Falafelwrap" data-price="159"
-                                 data-glutenkorn="true" data-vegan="true" data-halal="true">
-                                <h5>Falafelwrap <span class="pris">159,-</span></h5>
-                                <p>Falafel, salat, syltet rødløk og tahinisaus.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Beef Wrap" data-price="179"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>Beef Wrap <span class="pris">179,-</span></h5>
-                                <p>Strimlet biff, salat og hvitløksdressing.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Halloumi Wrap" data-price="179"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>Halloumi Wrap <span class="pris">179,-</span></h5>
-                                <p>Grillet halloumi, salat og frisk yoghurtdressing.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Sultan Wrap" data-price="189"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>Sultan Wrap <span class="pris">189,-</span></h5>
-                                <p>Husets wrap med blanding av kjøtt, salat og spesialsaus.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- GRILL -->
-                <div class="col-md-6" id="grill">
-                    <div class="card meny-card shadow-lg h-100">
-                        <div class="card-body p-4">
-                            <h3 class="section-title mb-3">Grill & husets spesial</h3>
-
-                            <div class="meny-item"
-                                 data-name="Mixed Grill" data-price="259"
-                                 data-glutenfree="true" data-halal="true">
-                                <h5>Mixed Grill <span class="pris">259,-</span></h5>
-                                <p>Et utvalg av våre beste kjøttretter, med ris og salat.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Sultan Spesial" data-price="239"
-                                 data-glutenfree="true" data-halal="true" data-melk="true">
-                                <h5>Sultan Spesial <span class="pris">239,-</span></h5>
-                                <p>Husets favoritt – perfekt for deg som vil prøve litt av alt.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Kyllingfilet fra grillen" data-price="219"
-                                 data-glutenfree="true" data-halal="true">
-                                <h5>Kyllingfilet fra grillen <span class="pris">219,-</span></h5>
-                                <p>Grillet kyllingfilet med grønnsaker og saus.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Lammekoteletter" data-price="259"
-                                 data-glutenfree="true" data-halal="true" data-melk="true">
-                                <h5>Lammekoteletter <span class="pris">259,-</span></h5>
-                                <p>Grillede lammekoteletter med ris, salat og mynteyoghurt.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Kebabtallerken" data-price="219"
-                                 data-glutenfree="true" data-halal="true">
-                                <h5>Kebabtallerken <span class="pris">219,-</span></h5>
-                                <p>Kebabkjøtt med pommes frites, salat og dressing.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Grillet fiskefilet" data-price="229"
-                                 data-glutenfree="true" data-halal="true" data-fisk="true">
-                                <h5>Grillet fiskefilet <span class="pris">229,-</span></h5>
-                                <p>Lettgrillet fisk med sitron, urter og grønnsaker.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DESSERT -->
-                <div class="col-md-6" id="dessert">
-                    <div class="card meny-card shadow-lg h-100">
-                        <div class="card-body p-4">
-                            <h3 class="section-title mb-3">Dessert</h3>
-
-                            <div class="meny-item"
-                                 data-name="Baklava" data-price="69"
-                                 data-glutenkorn="true" data-melk="true" data-notter="true">
-                                <h5>Baklava <span class="pris">69,-</span></h5>
-                                <p>Håndlaget baklava med nøtter og søt sirup.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Dagens kake" data-price="59"
-                                 data-glutenkorn="true" data-melk="true">
-                                <h5>Dagens kake <span class="pris">59,-</span></h5>
-                                <p>Spør betjeningen om dagens kake.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Is med nøtter" data-price="79"
-                                 data-glutenfree="true" data-melk="true" data-notter="true" data-peanotter="true">
-                                <h5>Is med nøtter <span class="pris">79,-</span></h5>
-                                <p>Vaniljeis med nøtter og karamellsaus.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Sjokolademousse" data-price="79"
-                                 data-glutenfree="true" data-melk="true">
-                                <h5>Sjokolademousse <span class="pris">79,-</span></h5>
-                                <p>Luftig sjokolademousse med bær.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Fruktsalat" data-price="69"
-                                 data-glutenfree="true" data-vegan="true" data-halal="true">
-                                <h5>Fruktsalat <span class="pris">69,-</span></h5>
-                                <p>Frisk fruktsalat med sesongens frukt.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DRIKKE -->
-                <div class="col-md-6" id="drikke">
-                    <div class="card meny-card shadow-lg h-100">
-                        <div class="card-body p-4">
-                            <h3 class="section-title mb-3">Drikke</h3>
-
-                            <div class="meny-item"
-                                 data-name="Kaffe" data-price="35"
-                                 data-glutenfree="true" data-vegan="true" data-halal="true">
-                                <h5>Kaffe <span class="pris">35,-</span></h5>
-                                <p>Bryggkaffe.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Te" data-price="35"
-                                 data-glutenfree="true" data-vegan="true" data-halal="true">
-                                <h5>Te <span class="pris">35,-</span></h5>
-                                <p>Svart te, grønn te eller urtete.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Mineralvann" data-price="39"
-                                 data-glutenfree="true" data-vegan="true" data-halal="true">
-                                <h5>Mineralvann <span class="pris">39,-</span></h5>
-                                <p>Coca-Cola, Fanta, Sprite m.m.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Juice" data-price="39"
-                                 data-glutenfree="true" data-vegan="true" data-halal="true">
-                                <h5>Juice <span class="pris">39,-</span></h5>
-                                <p>Eplejuice eller appelsinjuice.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Vann med kullsyre" data-price="39"
-                                 data-glutenfree="true" data-vegan="true" data-halal="true">
-                                <h5>Vann med kullsyre <span class="pris">39,-</span></h5>
-                                <p>Iskaldt vann med kullsyre.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-
-                            <div class="meny-item"
-                                 data-name="Varm sjokolade" data-price="49"
-                                 data-glutenfree="true" data-melk="true" data-halal="true">
-                                <h5>Varm sjokolade <span class="pris">49,-</span></h5>
-                                <p>Varm kakao med krem.</p>
-                                <div class="meny-actions">
-                                    <input type="number" class="form-control form-control-sm qty-input" value="1" min="1" />
-                                    <button type="button" class="btn btn-sm btn-primary add-to-cart">Legg i kurv</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                }
             </div> <!-- /row -->
         </div>
 

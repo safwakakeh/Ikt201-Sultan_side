@@ -15,12 +15,24 @@ public class HomeController : Controller
     private readonly EmailService _emailService;
     private readonly ILogger<HomeController> _logger;
     private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly IMenuService _menuService;
+    private readonly IReservationService _reservationService;
+    private readonly IReviewService _reviewService;
 
-    public HomeController(EmailService emailService, ILogger<HomeController> logger, SignInManager<IdentityUser> signInManager)
+    public HomeController(
+        EmailService emailService, 
+        ILogger<HomeController> logger, 
+        SignInManager<IdentityUser> signInManager, 
+        IMenuService menuService, 
+        IReservationService reservationService,
+        IReviewService reviewService)
     {
         _emailService = emailService;
         _logger = logger;
         _signInManager = signInManager;
+        _menuService = menuService;
+        _reservationService = reservationService;
+        _reviewService = reviewService;
     }
 
     public async Task<IActionResult> BestillingFullfort(string session_id)
@@ -101,6 +113,32 @@ public class HomeController : Controller
         return View();
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Bestill(Bordbestilling model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View("BordBestilling", model);
+        }
+
+        var reservation = new Reservation
+        {
+            CustomerName = model.Navn,
+            Email = model.Email,
+            Phone = model.Tlf,
+            ReservationDate = model.Time,
+            NumberOfGuests = model.Gjester,
+            Status = "Pending",
+            CreatedAt = DateTime.Now
+        };
+
+        await _reservationService.CreateReservationAsync(reservation);
+
+        TempData["SuccessMessage"] = "Takk for din bestilling! Vi sender en bekreftelse på e-post.";
+        return RedirectToAction("BordBestilling");
+    }
+
     public async Task<IActionResult> Meny()
     {
         if (User.IsInRole("Admin"))
@@ -108,7 +146,8 @@ public class HomeController : Controller
             await _signInManager.SignOutAsync();
             return RedirectToAction("Meny");
         }
-        return View();
+        var dishes = await _menuService.GetAvailableDishesAsync();
+        return View(dishes);
     }
 
     public async Task<IActionResult> KontaktOss()
@@ -121,18 +160,40 @@ public class HomeController : Controller
         return View();
     }
 
-<<<<<<< HEAD
-    public async Task<IActionResult> OmOss()
-=======
-    public IActionResult BestillMat()
->>>>>>> origin/frontend-homepage
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SendTilbakemelding(string Navn, string Email, string Melding)
+    {
+        if (string.IsNullOrWhiteSpace(Navn) || string.IsNullOrWhiteSpace(Melding))
+        {
+            ModelState.AddModelError("", "Navn og melding er påkrevd.");
+            return View("KontaktOss");
+        }
+
+        var review = new Review
+        {
+            CustomerName = Navn,
+            Message = Melding,
+            Rating = 5, // Default rating, or add a rating input to the form
+            IsApproved = false,
+            CreatedAt = DateTime.Now
+        };
+
+        await _reviewService.CreateReviewAsync(review);
+
+        TempData["SuccessMessage"] = "Takk for din tilbakemelding! Den vil bli vurdert av oss.";
+        return RedirectToAction("KontaktOss");
+    }
+
+    public async Task<IActionResult> BestillMat()
     {
         if (User.IsInRole("Admin"))
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("OmOss");
+            return RedirectToAction("BestillMat");
         }
-        return View();
+        var dishes = await _menuService.GetAvailableDishesAsync();
+        return View(dishes);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

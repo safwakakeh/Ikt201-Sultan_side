@@ -60,7 +60,14 @@
 
                     <h3 class="section-title mb-4">Gi oss en tilbakemelding!</h3>
 
-                    <form asp-action="KontaktOss" method="post">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success text-center">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
+
+                    <form asp-action="SendTilbakemelding" method="post">
 
                         <div class="mb-3">
                             <label for="Navn" class="form-label">Navn</label>
