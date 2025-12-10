@@ -1,0 +1,48 @@
+@model Ikt201_Sultan_side.Models.ReceiptViewModel
+
+@{
+    ViewData["Title"] = "Betaling fullført";
+    var totalKr = Model.TotalAmount / 100.0M;
+}
+
+<div class="container mt-5 mb-5">
+    <h1>Betaling fullført</h1>
+
+    @if (!string.IsNullOrEmpty(Model.SessionId))
+    {
+        <p>Takk for bestillingen! Her er en oppsummering:</p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Vare</th>
+                <th>Antall</th>
+                <th>Sum</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Items)
+            {
+                var itemSum = item.Amount / 100.0M;
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@itemSum @Model.Currency.ToUpper()</td>
+                </tr>
+            }
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="2">Totalt</th>
+                <th>@totalKr @Model.Currency.ToUpper()</th>
+            </tr>
+            </tfoot>
+        </table>
+    }
+    else
+    {
+        <p>Betaling registrert, men ingen detaljer ble funnet.</p>
+    }
+
+    <a asp-controller="Home" asp-action="BestillMat" class="btn btn-primary mt-3">Tilbake til bestilling</a>
+</div>

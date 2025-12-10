@@ -1,8 +1,140 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Velkommen";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hero d-flex align-items-center">
+    <div class="container text-center">
+        <img src="../images/forside/bildetopp.jpg" alt="Sultan Oslo" class="forsideBildeTopp" />
+        <h1 class="display-4 mb-3">Sultan Oslo</h1>
+        <p class="lead mb-4">
+            Autentisk mellomøstlig mat, søte fristelser og fersk baklava – midt i hjertet av Oslo.
+        </p>
+        <a asp-controller="Home" asp-action="BordBestilling" class="btn btn-primary btn-lg">
+            Bestill bord
+        </a>
+    </div>
+</section>
+
+<section id="om-oss" class="py-5">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <div class="col-md-6">
+                <img src="../images/forside/shop.jpg" alt="Matrett"
+                     class="img-fluid rounded shadow">
+            </div>
+            <div class="col-md-6">
+                <h2 class="section-title mb-3">Om Sultan</h2>
+                <p>
+                    På Sultan ønsker vi å gi deg smaken av ekte mellomøstlig gjestfrihet.
+                    Vi kombinerer tradisjonelle oppskrifter med ferske råvarer,
+                    slik at du kan nyte alt fra grillede spesialiteter til håndlaget baklava.
+                </p>
+                <p>
+                    Uansett om du kommer innom for en rask kaffe, en dessert eller en
+                    helaften med venner og familie, vil vi at du skal føle deg som hjemme.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SIGNATURRETTER -->
+<section id="signaturretter" class="py-5 bg-light-sultan">
+    <div class="container">
+        <h2 class="section-title text-center mb-4">Våre signaturretter</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card dish-card h-100">
+                    <img src="../images/forside/mat1.jpg" class="card-img-top" alt="Rett 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Mixed Grill</h5>
+                        <p class="card-text">
+                            Et utvalg av våre beste kjøttretter, servert med ris, salat og nybakt brød.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card dish-card h-100">
+                    <img src="../images/forside/mat2.jpg" class="card-img-top" alt="Rett 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Hjemmelaget Baklava</h5>
+                        <p class="card-text">
+                            Sprø filodeig, nøtter og søt sirup – bakt etter tradisjonelle oppskrifter.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card dish-card h-100">
+                    <img src="../images/forside/mat3.jpg" class="card-img-top" alt="Rett 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Sultan Spesial</h5>
+                        <p class="card-text">
+                            Husets favoritt – perfekt for deg som vil prøve litt av alt.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BESØK OSS -->
+<section id="besok-oss" class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <h2 class="section-title mb-3">Besøk oss</h2>
+                <p>
+                    Du finner oss i Grønlandsleiret 16B, med kort avstand til kollektivtransport.
+                </p>
+                <h5 class="mb-2">Åpningstider</h5>
+                <ul class="list-unstyled">
+                    <li><strong>Mandag–Torsdag:</strong> 11:00 – 22:00</li>
+                    <li><strong>Fredag–Lørdag:</strong> 11:00 – 23:30</li>
+                    <li><strong>Søndag:</strong> 12:00 – 21:00</li>
+                </ul>
+                <p class="mt-3">
+                    Ønsker du mer informasjon, eller å bestille for større selskap eller catering – ta kontakt via
+                    <a asp-controller="Home" asp-action="KontaktOss">kontakt siden vår. </a>.
+                </p>
+            </div>
+            <div class="col-md-6">
+
+                <div class="col-lg-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body p-0">
+                            <div class="map-container">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1435.0343379566818!2d10.76277837600974!3d59.91234336421869!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46416e5f0af0bab9%3A0xbd7a5d3f81f57221!2sGr%C3%B8nlandsleiret%2016b%2C%200190%20Oslo!5e1!3m2!1sno!2sno!4v1765105589529!5m2!1sno!2sno"                                    width="100%"
+                                    height="100%"
+                                    style="border:0;"
+                                    allowfullscreen="true"
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                >
+                                </iframe>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CALL TO ACTION -->
+<section class="py-5 cta-section text-center">
+    <div class="container">
+        <h2 class="mb-3">Klar for å smake Sultan?</h2>
+        <p class="mb-4">
+            Bestill bord i dag, og la oss ta oss av resten.
+        </p>
+        <a asp-controller="Home" asp-action="BordBestilling" class="btn btn-primary btn-lg">
+            Bestill bord nå
+        </a>
+    </div>
+</section>
