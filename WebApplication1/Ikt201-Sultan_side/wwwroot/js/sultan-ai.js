@@ -153,7 +153,7 @@
         // 🎉 Velkomstmelding
         addMessage(
             "model",
-            "Velkommen til Sultan Oslo Food & Sweets! 💫 Spør meg om meny, søtsaker eller bord. أهلاً وسهلاً!"
+            "Velkommen til Sultan Oslo Food & Sweets! Spør meg om meny, søtsaker eller åpningstider. أهلاً وسهلاً!"
         );
 
         let isOpen = false;
