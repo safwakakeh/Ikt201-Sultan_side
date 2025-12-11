@@ -31,7 +31,7 @@
             <span class="me-2 fw-semibold">Filtrer etter allergener (viser retter uten):</span>
 
             <label class="me-3">
-                <input type="checkbox" class="allergy-filter" data-filter="glutenkorn" data-mode="allergenFree" />
+                <input type="checkbox" class="allergy-filter" data-filter="gluten" data-mode="allergenFree" />
                 Glutenfri
             </label>
 
@@ -53,6 +53,21 @@
             <label class="me-3">
                 <input type="checkbox" class="allergy-filter" data-filter="peanotter" data-mode="allergenFree" />
                 Uten peanøtter
+            </label>
+
+            <label class="me-3">
+                <input type="checkbox" class="allergy-filter" data-filter="egg" data-mode="allergenFree" />
+                Uten egg
+            </label>
+
+            <label class="me-3">
+                <input type="checkbox" class="allergy-filter" data-filter="skalldyr" data-mode="allergenFree" />
+                Uten skalldyr
+            </label>
+
+            <label class="me-3">
+                <input type="checkbox" class="allergy-filter" data-filter="soya" data-mode="allergenFree" />
+                Uten soya
             </label>
         </div>
     </div>
@@ -88,26 +103,36 @@
                                 @foreach (var dish in dishesInCategory)
                                 {
                                     var allergens = dish.Allergens?.ToLower() ?? "";
-                                    var hasGluten = allergens.Contains("gluten") || allergens.Contains("hvete") ? "true" : "false";
-                                    var hasMelk = allergens.Contains("melk") || allergens.Contains("laktose") ? "true" : "false";
+                                    var hasGluten = allergens.Contains("gluten") ? "true" : "false";
+                                    var hasMelk = allergens.Contains("melk") ? "true" : "false";
                                     var hasFisk = allergens.Contains("fisk") ? "true" : "false";
-                                    var hasNotter = allergens.Contains("nøtter") || allergens.Contains("mandler") ? "true" : "false";
+                                    var hasNotter = allergens.Contains("nøtter") ? "true" : "false";
                                     var hasPeanotter = allergens.Contains("peanøtter") ? "true" : "false";
+                                    var hasEgg = allergens.Contains("egg") ? "true" : "false";
+                                    var hasSkalldyr = allergens.Contains("skalldyr") ? "true" : "false";
+                                    var hasSoya = allergens.Contains("soya") ? "true" : "false";
                                     
-                                    // Heuristics for properties
-                                    var isVegan = (dish.Name.ToLower().Contains("vegan") || (dish.Description?.ToLower().Contains("vegan") ?? false)) ? "true" : "false";
-                                    var isHalal = "true"; // Assuming Sultan is Halal by default
+                                    // Use properties from database
+                                    var isVegan = dish.IsVegan ? "true" : "false";
+                                    var isHalal = dish.IsHalal ? "true" : "false";
 
                                     <div class="meny-item"
                                          data-name="@dish.Name"
                                          data-price="@dish.Price.ToString("0")"
-                                         data-glutenkorn="@hasGluten"
+                                         data-gluten="@hasGluten"
                                          data-melk="@hasMelk"
                                          data-fisk="@hasFisk"
                                          data-notter="@hasNotter"
                                          data-peanotter="@hasPeanotter"
+                                         data-egg="@hasEgg"
+                                         data-skalldyr="@hasSkalldyr"
+                                         data-soya="@hasSoya"
                                          data-vegan="@isVegan"
                                          data-halal="@isHalal">
+                                        @if (!string.IsNullOrEmpty(dish.ImagePath))
+                                        {
+                                            <img src="@dish.ImagePath" alt="@dish.Name" class="img-fluid rounded mb-2" style="max-height: 200px; object-fit: cover; width: 100%;">
+                                        }
                                         <h5>@dish.Name <span class="pris">@dish.Price.ToString("0"),-</span></h5>
                                         <p>@dish.Description</p>
                                         <div class="meny-actions">

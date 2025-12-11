@@ -68,10 +68,78 @@
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Allergens" class="form-label">Allergener (kommaseparert)</label>
-                        <input asp-for="Allergens" class="form-control" />
+                        <label class="form-label">Allergener</label>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input allergen-checkbox" type="checkbox" value="gluten" id="allergen_gluten">
+                                    <label class="form-check-label" for="allergen_gluten">Gluten</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input allergen-checkbox" type="checkbox" value="melk" id="allergen_melk">
+                                    <label class="form-check-label" for="allergen_melk">Melk/Laktose</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input allergen-checkbox" type="checkbox" value="fisk" id="allergen_fisk">
+                                    <label class="form-check-label" for="allergen_fisk">Fisk</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input allergen-checkbox" type="checkbox" value="nøtter" id="allergen_notter">
+                                    <label class="form-check-label" for="allergen_notter">Nøtter</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input allergen-checkbox" type="checkbox" value="peanøtter" id="allergen_peanotter">
+                                    <label class="form-check-label" for="allergen_peanotter">Peanøtter</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input allergen-checkbox" type="checkbox" value="egg" id="allergen_egg">
+                                    <label class="form-check-label" for="allergen_egg">Egg</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input allergen-checkbox" type="checkbox" value="skalldyr" id="allergen_skalldyr">
+                                    <label class="form-check-label" for="allergen_skalldyr">Skalldyr</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input allergen-checkbox" type="checkbox" value="soya" id="allergen_soya">
+                                    <label class="form-check-label" for="allergen_soya">Soya</label>
+                                </div>
+                            </div>
+                        </div>
+                        <input asp-for="Allergens" type="hidden" id="AllergensInput" />
                         <span asp-validation-for="Allergens" class="text-danger"></span>
                     </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const checkboxes = document.querySelectorAll('.allergen-checkbox');
+                            const hiddenInput = document.getElementById('AllergensInput');
+                            
+                            // Pre-select based on existing value
+                            if (hiddenInput.value) {
+                                const currentAllergens = hiddenInput.value.split(',').map(s => s.trim().toLowerCase());
+                                checkboxes.forEach(cb => {
+                                    if (currentAllergens.includes(cb.value)) {
+                                        cb.checked = true;
+                                    }
+                                });
+                            }
+
+                            function updateAllergens() {
+                                const selected = Array.from(checkboxes)
+                                    .filter(cb => cb.checked)
+                                    .map(cb => cb.value);
+                                hiddenInput.value = selected.join(',');
+                            }
+
+                            checkboxes.forEach(cb => {
+                                cb.addEventListener('change', updateAllergens);
+                            });
+                        });
+                    </script>
 
                     <div class="mb-3">
                         <label class="form-label">Nåværende bilde</label>
@@ -89,6 +157,25 @@
                         <label for="imageFile" class="form-label">Last opp nytt bilde (valgfritt)</label>
                         <input type="file" name="imageFile" id="imageFile" class="form-control" accept="image/*" />
                         <small class="form-text text-muted">La stå tomt for å beholde eksisterende bilde</small>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input asp-for="IsVegan" class="form-check-input" type="checkbox" />
+                                <label asp-for="IsVegan" class="form-check-label">
+                                    Vegansk
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input asp-for="IsHalal" class="form-check-input" type="checkbox" />
+                                <label asp-for="IsHalal" class="form-check-label">
+                                    Halal
+                                </label>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mb-3 form-check">

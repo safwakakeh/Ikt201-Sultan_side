@@ -11,6 +11,8 @@ public class Dish
     public string? Allergens { get; set; } // Kommaseparert: "gluten,laktose,nøtter"
     public string? ImagePath { get; set; }
     public bool IsAvailable { get; set; } = true;
+    public bool IsVegan { get; set; }
+    public bool IsHalal { get; set; } = true; // Default to true as per previous assumption
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime? UpdatedAt { get; set; }
 }
