@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Stripe;
 using Ikt201_Sultan_side.Services;
+using Google.GenAI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,20 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<EmailService>();
+builder.Services.AddSingleton<Client>(sp =>
+{
+    var config = sp.GetRequiredService<IConfiguration>();
+    var apiKey = config["Gemini:ApiKey"];
+
+    if (string.IsNullOrWhiteSpace(apiKey))
+    {
+        return new Client();
+    }
+
+    return new Client(apiKey: apiKey);
+});
+
+builder.Services.AddSingleton<GeminiChatService>();
 
 var app = builder.Build();
 
@@ -53,7 +68,7 @@ else
 app.UseHttpsRedirection();
 app.UseRouting();
 
-// ↓↓↓ KRITISK FIX: Legg til UseAuthentication() FØR UseAuthorization() ↓↓↓
+// Riktig rekkefølge
 app.UseAuthentication();
 app.UseAuthorization();
 
