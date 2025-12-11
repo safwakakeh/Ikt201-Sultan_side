@@ -7,6 +7,8 @@ using Stripe.Checkout;
 using Ikt201_Sultan_side.Models;
 using Ikt201_Sultan_side.Services;
 using Microsoft.AspNetCore.Identity;
+using System;
+
 
 namespace Ikt201_Sultan_side.Controllers;
 
@@ -135,9 +137,36 @@ public class HomeController : Controller
 
         await _reservationService.CreateReservationAsync(reservation);
 
-        TempData["SuccessMessage"] = "Takk for din bestilling! Vi sender en bekreftelse på e-post.";
+        // 🔹 NY DEL: Send e-postbekreftelse til kunden
+        try
+        {
+            var subject = "Bekreftelse på bordreservasjon hos Sultan Oslo Food & Sweets";
+
+            var html = $@"
+            <h2>Hei {model.Navn}!</h2>
+            <p>Takk for din reservasjon hos Sultan Oslo Food & Sweets.</p>
+            <p>Her er detaljene for reservasjonen din:</p>
+            <ul>
+                <li><strong>Dato og tid:</strong> {model.Time}</li>
+                <li><strong>Antall gjester:</strong> {model.Gjester}</li>
+                <li><strong>Telefon:</strong> {model.Tlf}</li>
+            </ul>
+            <p>Dette er en automatisk bekreftelse. Hvis noe må endres, ta kontakt med oss.</p>
+            <p>Vi gleder oss til å se deg!</p>
+        ";
+
+            await _emailService.SendEmailAsync(model.Email, subject, html);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Feil ved sending av bordbekreftelse på e-post.");
+            // Her kan du evt. logge mer eller vise en annen melding hvis du vil
+        }
+
+        TempData["SuccessMessage"] = "Takk for din bestilling! Vi har sendt en bekreftelse på e-post.";
         return RedirectToAction("BordBestilling");
     }
+
 
     public async Task<IActionResult> Meny()
     {
